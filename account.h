@@ -5,6 +5,7 @@
 #ifndef ACS_ACCOUNT_H
 #define ACS_ACCOUNT_H
 #include "string"
+#include "iostream"
 
 class account {
 
@@ -19,15 +20,17 @@ public:
     account(const std::string &username, const std::string &password);
 
     const std::string &getUsername() const;
-    void setUsername(const std::string &username);
+    void setUsername(const std::string &name);
 
 
     const std::string &getPassword() const;
 
-    void setPassword(const std::string &password);
+    void setPassword(const std::string &pword);
 
     int getAccLevel() const;
     void setAccLevel(int accLevel);
+
+    virtual ~account();
 };
 
 

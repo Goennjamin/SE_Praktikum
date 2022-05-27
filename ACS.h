@@ -11,7 +11,7 @@
 #include "map"
 #include "vector"
 #include "account.h"
-#include "iostream"
+
 
 class ACS {
 
@@ -34,6 +34,7 @@ public:
 
     const std::vector<account> &getAcclist() const;
 
+    ~ACS();
 };
 
 

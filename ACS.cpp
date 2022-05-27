@@ -196,6 +196,12 @@ bool ACS::has_account() {
 
 }
 
+ACS::~ACS() {
+
+    std::cout<<"System closed"<<"\n";
+
+}
+
 
 ACS::ACS() = default;
 

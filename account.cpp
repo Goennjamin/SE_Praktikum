@@ -24,10 +24,16 @@ void account::setAccLevel(int accLevel) {
     acc_level = accLevel;
 }
 
-void account::setUsername(const std::string &username) {
-    account::username = username;
+void account::setUsername(const std::string &name) {
+    account::username = name;
 }
 
-void account::setPassword(const std::string &password) {
-    account::password = password;
+void account::setPassword(const std::string &pword) {
+    account::password = pword;
+}
+
+account::~account() {
+
+    std::cout<<"account deleted"<<"\n";
+
 }
