@@ -34,6 +34,4 @@ void account::setPassword(const std::string &pword) {
 
 account::~account() {
 
-    std::cout<<"account deleted"<<"\n";
-
 }

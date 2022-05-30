@@ -31,6 +31,7 @@ public:
     void set_acc_level(account &a, int l);
     void print_list();
     bool has_account();
+    int login();
 
     const std::vector<account> &getAcclist() const;
 
