@@ -4,6 +4,9 @@
 
 #include "ACS.h"
 
+
+
+
 void ACS::createAccount(std::string un, std::string pw) {
 
     account a1(un,pw);
@@ -56,13 +59,13 @@ const std::vector<account> &ACS::getAcclist() const {
     return acclist;
 }
 
-void ACS::manage_accounts() {
+void ACS::manage_accounts(int access) {
 
 bool looploop = true;
 
 while(looploop) {
 
-    int access = login();
+    //int access = login();
 
     if (access!= 0) {
 
@@ -97,7 +100,7 @@ while(looploop) {
 
             }
 
-            if (y == 2) {
+            if (y == 2 && access > 2) {
 
                 if (has_account()) {
 
@@ -161,7 +164,11 @@ while(looploop) {
                             x = 0;
                         }
                     }
-                } else {
+                } else if(y == 2 && access < 3){
+
+                    std::cout << "You have no permission to perform this action"<<"\n";
+
+                }else{
 
                     std::cout << "There are no accounts to manage, please create an account first" << "\n";
 
@@ -223,36 +230,42 @@ int ACS::login() {
     std::cout<<"Please enter your Username"<<"\n";
     std::cin >> name;
 
+
+    bool succ = false;
     int i = 0;
 
     for(i; i <= acclist.size(); i++){
 
         if(acclist.at(i).getUsername() != name){
 
-            std::cout<<"Invalid username, please try again"<<"\n"; // TODO: HIER MUSS WAS GEFIXT WERDEN
+            continue;
 
 
         }else{
+            succ = true;
             break;
         }
     }
 
-    std::cout<<"Please enter your Password"<<"\n";
-    std::cin.clear();
+    if(!succ){
+        std::cout<<"Invalid username, please try again"<<"\n";
+    }else {
+        std::cout << "Please enter your Password" << "\n";
+        std::cin.clear();
 
-    std::string pw;
-    std::cin >> pw;
-    if(acclist.at(i).getPassword() != pw){
+        std::string pw;
+        std::cin >> pw;
+        if (acclist.at(i).getPassword() != pw) {
 
-        std::cout<<"Invalid password, please try again"<<"\n";
-        return 0;
+            std::cout << "Invalid password, please try again" << "\n";
+            return 0;
 
-    }else{
+        } else {
 
-        std::cout<<"Welcome " << acclist.at(i).getUsername()<<"\n";
-        return acclist.at(i).getAccLevel();
-    }
-
+            std::cout << "Welcome " << acclist.at(i).getUsername() << "\n";
+            return acclist.at(i).getAccLevel();
+        }
+    }//else succ
 }
 
 
@@ -262,6 +275,12 @@ ACS::ACS(){
 
     acclist.at(0).setAccLevel(3);
 
+
+}
+
+int ACS::logout() {
+
+    return 0;
 
 };
 

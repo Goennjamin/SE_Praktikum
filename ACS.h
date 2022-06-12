@@ -25,13 +25,14 @@ private:
 public:
     ACS();
     void createAccount(std::string un, std::string pw);
-    void manage_accounts();
+    void manage_accounts(int access);
     void set_acc_username(account &a, std::string name);
     void set_acc_password(account &a, std::string password);
     void set_acc_level(account &a, int l);
     void print_list();
     bool has_account();
     int login();
+    int logout();
 
     const std::vector<account> &getAcclist() const;
 
