@@ -2,23 +2,15 @@
 #include "ACS.h"
 #include <string>
 #include <fstream>
-
-/*int main() {
-
-
-    ACS acs1;
-
-    acs1.createAccount("Leon","1234");
-
-    acs1.manage_accounts();
-}
-*/
+#include "kontenmanagement.h"
 
 using namespace std;
 
 bool rechte(false);
 bool deutsch(false);
 
+void kontoHinzufugen(Kontenmanagement & km);
+void menuBuchung(Kontenmanagement & km);
 
 //funktion des logins mit login daten
 
@@ -35,7 +27,9 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 {
     ACS acs1;
 
-    int access = 0;
+    Kontenmanagement KontoManager = Kontenmanagement();
+
+    int access = acs1.login();
 
     while(true) {
 
@@ -53,11 +47,12 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
         cout << "3. Anlagen Abschreiben?" << endl;
         cout << "4. Sprache aendern?" << endl;
         cout << "5. Account Management" << endl;
-        cout << "6. Logout/Account wechseln" << endl;
+        cout << "6. Neues Konto eröffnen" <<"\n";
+        cout << "7. Logout/Account wechseln" << endl;
         if (rechte) {
-            cout << "6. Bilanz ausgeben?"
+            cout << "8. Bilanz ausgeben?"
                  << endl; // Verschachteltes Menü, Bilanz zu einem gewissen Zeitpunkt ausgeben, aktuell ausgeben?
-            cout << "7. Anfragen bearbeiten?" << endl;
+            cout << "9. Anfragen bearbeiten?" << endl;
         }
 
         cout << endl;
@@ -68,9 +63,18 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
         switch (userinput) {
             case 1: // Buchungssätze
             {
-                cout << "Hier können buchungen verbucht werden" << endl;
+
+                for (int i = 0; i < 3; i++) {
+                    KontoManager.kontoHinzufuegen(KontoManager);
+
+                }
+
+
+                menuBuchung(KontoManager);
                 break;
             }
+
+
             case 2: // Kontenplan
             {
 
@@ -139,6 +143,13 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                 case 6:
 
 
+                    kontoHinzufugen(KontoManager);
+
+                    break;
+
+                case 7:
+
+
                     access = acs1.logout();
 
                 break;
@@ -204,5 +215,41 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                     */
             }
         }
+
     }
+    }
+
+
+void kontoHinzufugen(Kontenmanagement & km){
+    cout << "Hiermit legen Sie ein neues Konto an:" << endl;
+    cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
+    string name{};
+    cin >> name;
+    cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
+    string art;
+    cin >> art;
+    Konto k(name,art);
+    km.kontoHinzufuegen(k);
+}
+
+void menuBuchung(Kontenmanagement & km) {
+    string kontoSoll{};
+    string kontoHaben{};
+    int betrag{};
+    cout << "Bitte geben Sie das Konto ein von dem Sie buchen wollen" << endl;
+    cin >> kontoSoll;
+    cout << "Bitte geben Sie das Konto ein auf welches Sie buchen wollen" << endl;
+    cin >> kontoHaben;
+    cout << "Bitte geben Sie den zu verbuchenden Betrag ein" << endl;
+    cin >> betrag;
+
+    cout << "Der Buchunssatz lautet:" << endl;
+    cout << setw(10) << kontoSoll << setw(10) << betrag << setw(10) << "an" << setw(10) << kontoHaben << endl;
+
+    cout << "Ist das so korrekt ? (j/n)" << endl;
+    string eingabe{};
+    cin >> eingabe;
+
+    km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
+    km.printBuchungssatz(kontoSoll, kontoHaben, betrag);
 }
