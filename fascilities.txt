@@ -1,0 +1,7 @@
+100000; Elektrisch höhenverstellbarer Schreibtisch; 620; 620; 10; 10.
+100001; Wilkhahn Mesh Stuhl; 610; 549; 10; 5.
+100002; Phillips Kaffevollautomat; 300; 225; 8; 6.
+100003; HP Laserjet Enterprise; 1800; 1800; 25; 25.
+100004; Office PC Core i5 10400; 480; 384; 10; 8.
+100005; Yealink Telefon SIP-T54W, schwarz; 150; 150; 20; 20.
+ENDE
