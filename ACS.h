@@ -25,7 +25,8 @@ private:
 public:
     ACS();
     void createAccount(std::string un, std::string pw);
-    void manage_accounts(int access);
+    void removeAccount();
+    void manage_accounts(int access, bool language);
     void set_acc_username(account &a, std::string name);
     void set_acc_password(account &a, std::string password);
     void set_acc_level(account &a, int l);

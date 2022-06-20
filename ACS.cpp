@@ -59,7 +59,7 @@ const std::vector<account> &ACS::getAcclist() const {
     return acclist;
 }
 
-void ACS::manage_accounts(int access) {
+void ACS::manage_accounts(int access, bool language) {
 
 bool looploop = true;
 
@@ -77,12 +77,27 @@ while(looploop) {
         while (loop) {
 
 
-            std::cout << "What would you like to do?" << "\n"
-                      << "1. Create a new Account" << "\n";
-            if(access == 3) {
-                std::cout<< "2. Manage existing Accounts" << "\n";}
-            std::cout<< "3. Exit the ACS" << "\n";
+            if(language){
+                std::cout   << "Was wuerden sie gerne tun?"<<"\n"
+                            << "1. Erstelle einen neuen Account"<<"\n";
+                if(access == 3){
+                std::cout   << "2. Verwalte bereits existierende Accounts"<<"\n";
+                //std::cout   << "3. Accounts löschen"<<"\n";
+                }
 
+                std::cout   << "4. Verlasse die Accountverwaltung"<<"\n";
+
+            }else {
+
+                std::cout << "What would you like to do?" << "\n"
+                          << "1. Create a new Account" << "\n";
+                if (access == 3) {
+                    std::cout << "2. Manage existing Accounts" << "\n";
+                    //std::cout<< "3. Delete Accounts"<<"\n";
+                }
+                std::cout << "4. Exit the ACS" << "\n";
+
+            }
             std::cin >> y;
             std::cin.clear();
 
@@ -91,9 +106,17 @@ while(looploop) {
 
                 std::string name, password;
 
-                std::cout << "Please enter the Username" << "\n";
+                if(language){
+                    std::cout << "Bitte geben Sie den Benutzernamen ein"<<"\n";
+                }else{
+                    std::cout << "Please enter the Username" << "\n";
+                }
                 std::cin >> name;
-                std::cout << "Please enter the Password" << "\n";
+                if(language){
+                    std::cout << "Bitte geben Sie das Passwort ein"<<"\n";
+                }else {
+                    std::cout << "Please enter the Password" << "\n";
+                }
                 std::cin >> password;
 
                 createAccount(name, password);
@@ -105,24 +128,38 @@ while(looploop) {
                 if (has_account()) {
 
                     print_list();
-                    std::cout << "Which account would you like to manage? Insert the id please" << "\n";
-
+                    if(language){
+                        std::cout << "Welchen account würden sie gerne bearbeiten? Bitte geben sie die ID ein" << "\n";
+                    }else {
+                        std::cout << "Which account would you like to manage? Insert the id please" << "\n";
+                    }
                     std::cin >> id;
 
 
                     if (id > acclist.size() - 1) {
                         id = {};
 
-                        std::cout << "Invalid ID, please try again" << "\n";
-
+                        if(language){
+                            std::cout << "Ungueltige ID, bitte erneut versuchen"<<"\n";
+                        }else {
+                            std::cout << "Invalid ID, please try again" << "\n";
+                        }
                     } else {
 
 
-                        std::cout << "What would you like to change?" << "\n";
-                        std::cout << "1. Username" << "\n"
-                                                      "2. Password" << "\n"
-                                                                       "3. access level"<<"\n";
+                        if(language){
+                            std::cout << "Was wuerden Sie gerne bearbeiten?" <<"\n";
+                            std::cout << "1. Nutzernamen" <<"\n"
+                                      << "2. Passwort" <<"\n"
+                                      << "3. Account Stufe" <<"\n";
 
+                        }else{
+
+                            std::cout << "What would you like to change?" << "\n";
+                            std::cout << "1. Username" << "\n"
+                                                          "2. Password" << "\n"
+                                                                       "3. access level"<<"\n";
+                        }
 
 
                         std::cin >> x;
@@ -133,6 +170,8 @@ while(looploop) {
                             std::string n;
 
                             std::cout << "Please insert the new Username" << "\n";
+
+
                             std::cin >> n;
 
                             set_acc_username(const_cast<account &>(getAcclist().at(id)), n);
@@ -163,6 +202,8 @@ while(looploop) {
 
                             x = 0;
                         }
+
+
                     }
                 } else if(y == 2 && access < 3){
 
@@ -175,9 +216,21 @@ while(looploop) {
                 }
             }
 
+            if(y == 3 && access > 2){
+
+
+                print_list();
+
+                std::cout <<"Please insert the account ID that you want to delete"<<"\n";
+
+                int o;
+                std::cin>> o;
+
+            }
+
             std::cout << "\n";
 
-            if (y == 3) {
+            if (y == 4) {
                 y = 0;
                 looploop = false;
                 break;
@@ -240,7 +293,6 @@ int ACS::login() {
 
             continue;
 
-
         }else{
             succ = true;
             break;
@@ -249,6 +301,7 @@ int ACS::login() {
 
     if(!succ){
         std::cout<<"Invalid username, please try again"<<"\n";
+        return 0;
     }else {
         std::cout << "Please enter your Password" << "\n";
         std::cin.clear();
@@ -281,6 +334,12 @@ ACS::ACS(){
 int ACS::logout() {
 
     return 0;
+
+}
+
+void ACS::removeAccount() {
+
+
 
 };
 

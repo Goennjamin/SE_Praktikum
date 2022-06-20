@@ -80,7 +80,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
                 if (deutsch) {
                     cout << "Hier der aktuelle Kontenplan des Unternehmens: " << endl << endl;
-                    std::ifstream f("Kontenplan.txt");
+                    std::ifstream f(R"(..\Kontenplan.txt)");
 
                     if (f.is_open()) {
                         std::cout << f.rdbuf();
@@ -88,7 +88,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                     break;
                 } else {
                     cout << "Here is the current chart of Accounts: " << endl << endl;
-                    std::ifstream f("ChartOfAccounts.txt");
+                    std::ifstream f(R"(..\ChartOfAccounts.txt)");
 
                     if (f.is_open()) {
                         std::cout << f.rdbuf();
@@ -130,13 +130,15 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                     */
                 case 4: // Sprache Ändern
                     cout << "Sprache Ändern" << endl;
+                    deutsch = true;
                 break;
 
 
                 case 5:
 
 
-                    acs1.manage_accounts(access);
+                    acs1.manage_accounts(access, deutsch);
+
 
                 break;
 

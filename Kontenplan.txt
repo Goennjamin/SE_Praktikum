@@ -1,0 +1,115 @@
+-Aktiva-
+
+0500, UGR, Unbebaute Grundstuecke;
+0510, BGR, Bebaute Grundstuecke;
+0530, BVG, Betriebs- und Verwaltungsgebaeude;
+0700, MA, Maschinen und Anlagen;
+0840, FP, Fuhrpark;
+0860, BM, Bueromaschinen;
+0870, BA, Bueroaustattung;
+0890, GWG, Geringwertige Wirtschaftsgueter;
+1300, BET, Beteiligungen;
+2000, R, Rohstoffe;
+2010, F, Fremdbauteile;
+2020, H, Hilfsstoffe;
+2030, B, Betriebsstoffe;
+2100, UFE, Unfertige Erzeugnisse;
+2200, FE, Fertige Erzeugnisse;
+2280, HW, Handelswaren;
+2400, FO, Forderungen aus LuL.;
+2470, ZWFO, Zweifelhafte Forderungen;
+2600, VORST, Vorsteuer;
+2690, SOFO, Uebrige sonstige Forderungen;
+2700, WP, Wertpapiere;
+2800, BK, Bank;
+2880, KA, Kasse;
+2900, ARA, Aktive Rechnungsabgrenzung;
+
+
+-Passiva-
+
+3000, EK, Eigenkapital;
+3001, P, Privatkonto;
+3670, EWB, Einzelwertberichtigung;
+3680, PWB, Pauschalwertberichtigung;
+3900, SORST, Sonstige Rueckstellungen;
+4200, KBKV, Kurzfristige Bankverbindlichkeiten;
+4250, LBKV, Langfristige Bankverbindlichkeiten;
+4400, VE, Verbindlichkeiten aus LuL.;
+4800, UST, Umsatzsteuer;
+4830, VFA, Sonstige Verbindlichkeiten gegenueber dem Finanzamt;
+4840, VSV, Verbindlichkeiten gegenueber Sozialversicherungstraegern;
+4890, SOVE, Uebrige sonstige Verbindlichkeiten;
+4900, PRA, Passive Rechnungsabgrenzung;
+
+-Ertraege-
+
+5000, UEFE, Umsatzerloese fuer eigene Erzeugnisse;
+5001, EBFE, Erloesberichtigungen eigene Erzeugnisse;
+5100, UEHW, Umsatzerloese fuer Handelswaren;
+5101, EBHW, Erloesberichtigungen Handelswaren;
+5200, BV, Bestandsveraenderungen;
+5400, EMP, Erloese aus Vermietungen und Pachten;
+5410, EAAV, Erloese aus dem Abgang von Gegenstaenden des Anlagevermoegens;
+5430, ASBE, Andere sonstige betriebliche Ertraege;
+5450, EAWB, Ertraege aus der Aufloesung oder Herabsetzung von Wertberichtigungen;
+5460, EAVG, Ertraege aus dem Abgang von Vermoegensgegenstaenden;
+5490, PFE, Periodenfremde Ertraege;
+5495, EFO, Ertraege aus abgeschriebenen Forderungen;
+5710, ZE, Zinsertraege;
+5780, DDE, Dividendenertraege;
+5784, EAWP, Ertraege aus dem Abgang von Wertpapieren des Umlaufvermoegens;
+
+-Aufwendungen-
+
+6000, AWR, Aufwendungen fuer Rohstoffe;
+6001, BZKR, Bezugkosten fuer Rohstoffe;
+6002, NR, Nachlaesse Rohstoffe;
+6010, AWF, Aufwendungen fuer Fremdbauteile;
+6011, BZKF, Bezugskosten fuer Fremdbauteile;
+6012, NF, Nachlaesse Fremdbauteile;
+6020, AWH, Aufwendunge fuer Hilfsstoffe;
+6021, BZKH, Bezugkosten fuer Hilfsstoffe;
+6022, NH, Nachlaesse Hilfsstoffe;
+6030, AWB, Aufwendungen fuer Betriebsstoffe;
+6031, BZKB, Bezugskosten fuer Betriebsstoffe;
+6032, NB, Nachlaesse Betriebsstoffe;
+6040, AWVM, Aufwendengen fuer Verpackungsmaterial;
+6080, AWHW, Aufwendungen fuer Handelswaren;
+6081, BZKHW, Bezugskosten fuer Handelswaren;
+6082, NHW, Nachlaesse Handelswaren;
+6140, AFR, Ausgangsfrachten;
+6160, FRI, Fremdinstanthaltung;
+6200, L, Loehne;
+6300, G, Gehaelter;
+6400, AGASV, Arbeitgeberanteil zur Sozialversicherung;
+6420, BBG, Betriga zur Berufsgenossenschaft;
+6520, ABSA, Abschreibungen auf Sachanlagen;
+6540, ABGWG, Abschreibungen auf Geringe Wirschaftsgueter;
+6700, AWMP, Aufwendungen fuer Mieten und Pachten;
+6710, LS, Leasing;
+6730, GEB, Gebuehren;
+6750, KGV, Kosten des Geldverkehrs;
+6770, RBK, Rechts und Beratungskosten;
+6800, BMT, Bueromaterial;
+6810, ZFL, Zeitungen und Fachliteratur;
+6820, PUK, Post und Kommunikationsgebuehr;
+6850, REK, Reisekosten;
+6870, WER, Werbung;
+6900, VBEI, Versicherungsbeitraege;
+6920, BWB, Beitraege zu Wirtschafstverbaenden und Berufsvertretungen;
+6930, VSF, Verluste aus Schadensfaellen;
+6950, ABFO, Abschreibungen auf Forderungen;
+6960, VAVG, Verluste aus dem Abgang von Vermoegensgegenstaenden;
+6990, PFAW, Periodenfremde Aufwendungen;
+7000, GWST, Gewerbesteuer;
+7020, GRST, Grundsteuer;
+7030, KFZST, Kraftfahrzeugsteuer;
+7460, VAWP, Verluste aus dem Abgang von Wertpapieren des Umlaufvermoegens;
+7510, ZAW,  Zinsaufwendungen;
+8000, EBK, Eroeffnungsbilanzkonto;
+8010, SBK, Schlussbilanzkonto;
+8020, GUV, Gewinn und Verlustkonto;
+90, NAWE, Neutrale Aufwendungen und Ertraege;
+91, KKOR, Kostenrechnerische Korrekturen;
+92, KL, Kosten und Leistungen;

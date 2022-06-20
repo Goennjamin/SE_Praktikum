@@ -1,0 +1,115 @@
+-Assets-
+
+0500, LA, Land;
+0510, BD, Buildings;
+0530, FAS, Fascilities;
+0700, MA, Maschines and Investments;
+0840, C, Cars;
+0860, BM, Buromaschines;
+0870, BA, Buroequipment;
+0890, SEG, Small valued Economy Goods;
+1300, INV, Involvements;
+2000, R, Raw Material
+2010, FC, Foreign Components;
+2020, E, Excipients;
+2030, SUP, Supplies;
+2100, UP, Undone Products;
+2200, DP, Done Products;
+2280, MERCH, Merchandise;
+2400, CL, Claims;
+2470, DCL, Doubtful Claims;
+2600, IT, Input Tax;
+2690, LOCL, Leftover Claims;
+2700, BO, Bonds;
+2800, BK, Bank;
+2880, CA, Cash;
+2900, ARA, Prepaid Expenses;
+
+
+-Liabilities-
+
+3000, Ey, Equity;
+3001, PA, Private Account;
+3670, SA, Speicifc Allowance;
+3680, FRA, Flat Rate Allowance;
+3900, OP, Other Provisions;
+4200, STBL, Shortterm Bank Liabilites;
+4250, LTBL, Longterm Bank Liabilities;
+4400, L, Liabilities;
+4800, VAT, Value added Tax;
+4830, OLTO, Other Liabilities to the tax office;
+4840, LSIC, Liabilities to social Insurance Carriers;
+4890, MOL, Miscellaneous other liabilities;
+4900, DI, Deferred income;
+
+-Income-
+
+5000, SOOP, Sales of Own Products;
+5001, RAOP, Revenue adjustment Own Products;
+5100, MERCHSR, Merchandise Sales Revenue;
+5101, RAMERCH, Revenue adjustments for Merchandise;
+5200, SC, Stock Changes;
+5400, RLP, Rental and Lease Proceeds;
+5410, PDFA, Proceeds from disposal of Fixed Assets;
+5430, OOI, Other operating income;
+5450, PRRVA, Proceeds from the reversal or reduction of value adjustments;
+5460, PDA, Proceeds from the disposal of assets;
+5490, OOPI, Out of period income;
+5495, IRWO, income from receivables written off;
+5710, II, Interest income;
+5780, DI, Dividend Income;
+5784, PDMS, Proceeds from disposal of marketable securities;
+
+-Expenditure-
+
+6000, EXPR, Expenditure for Raw Material;
+6001, PCR, procurement costs for Raw Material;
+6002, ER, Estate Raw Material;
+6010, EXPFC, Expenditure for Foreign Components;
+6011, PCFC, procurement costs for Foreign Components;
+6012, EFC, Estate Foreign Components;
+6020, EXPE,Expenditure for Excipients;
+6021, PCE, procurement costs for Excipients;
+6022, EE, Estate Excipients
+6030, EXPSUP, Expenditure for Supplies;
+6031, PCSUP, procurement costs for Supplies;
+6032, ESUP, Estate Supplies;
+6040, EXPPM, Expenditure for Packaging Material;
+6080, EXPMERCH, Expenditure for Merchandise;
+6081, PCMERCH, procurement costs for Merchandise;
+6082, EMERCH, Estate Merchandise;
+6140, OF, Outbound Freight;
+6160, TPM, Third-Party Maintenance;
+6200, W, Wages;
+6300, S, Salaries;
+6400, ECSS, Employer's Contribution to Social Security;
+6420, BTA, Betriga to the Trade Association;
+6520, DPPE, Depreciation of property, plant and equipment;
+6540, DSBG, Depreciation of Small Business Goods;
+6700, ERL, Expenditure for Rents and Leases;
+6710, LS, leasing;
+6730, F, Fees;
+6750, CMT, Costs of money transactions;
+6770, LCF, Legal and consulting fees;
+6800, OS, Office supplies;
+6810, NSL, Newspapers and specialist literature;
+6820, PCF, post and communication fee;
+6850, TE, travel expenses;
+6870, AD, advertising;
+6900, IC, insurance contributions;
+6920, CBATA, Contributions to business associations and trade associations;
+6930, LFC, losses from claims;
+6950, WOAR, write-offs of accounts receivable;
+6960, LDA, Losses from the disposal of assets;
+6990, NPE, non-period expenses;
+7000, BTAX, business tax;
+7020, PTAX, property tax;
+7030, MVTAX, motor vehicle tax;
+7460, LDMS, Losses on disposal of marketable securities;
+7510, INTC, interest charges;
+8000, OBA, opening balance account;
+8010, CBA, closing balance account;
+8020, PLA, profit and loss account;
+90, NEP, Neutral Expenditure and Proceeds;
+91, CAC, cost accounting corrections;
+92, CB, costs and benefits;
