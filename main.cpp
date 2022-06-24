@@ -7,7 +7,7 @@
 using namespace std;
 
 bool rechte(false);
-bool deutsch(false);
+bool deutsch(true);
 
 void kontoHinzufugen(Kontenmanagement & km);
 void menuBuchung(Kontenmanagement & km);
@@ -39,20 +39,41 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
         }
 
-        cout << "Willkommen im Finanzsystem!" << endl;
-        cout << "Welche Funktion des Finanzsystems wollen Sie verwenden?" << endl;
-        cout << "Moechten Sie ... " << endl;
-        cout << "1. Buchungssätze, Buchen?" << endl;
-        cout << "2. Kontenplan ausgeben?" << endl;
-        cout << "3. Anlagen Abschreiben?" << endl;
-        cout << "4. Sprache aendern?" << endl;
-        cout << "5. Account Management" << endl;
-        cout << "6. Neues Konto eröffnen" <<"\n";
-        cout << "7. Logout/Account wechseln" << endl;
-        if (rechte) {
-            cout << "8. Bilanz ausgeben?"
-                 << endl; // Verschachteltes Menü, Bilanz zu einem gewissen Zeitpunkt ausgeben, aktuell ausgeben?
-            cout << "9. Anfragen bearbeiten?" << endl;
+        if(deutsch) {
+
+            cout << "Willkommen im Finanzsystem!" << endl;
+            cout << "Welche Funktion des Finanzsystems wollen Sie verwenden?" << endl;
+            cout << "Moechten Sie ... " << endl;
+            cout << "1. Buchungssätze, Buchen?" << endl;
+            cout << "2. Kontenplan ausgeben?" << endl;
+            cout << "3. Anlagen Abschreiben?" << endl;
+            cout << "4. Sprache aendern?" << endl;
+            cout << "5. Account Management" << endl;
+            cout << "6. Neues Konto eröffnen" << "\n";
+            cout << "7. Logout/Account wechseln" << endl;
+            if (rechte) {
+                cout << "8. Bilanz ausgeben?"
+                     << endl; // Verschachteltes Menü, Bilanz zu einem gewissen Zeitpunkt ausgeben, aktuell ausgeben?
+                cout << "9. Anfragen bearbeiten?" << endl;
+            }
+            std::cout << "x: Das Programm beenden"<<"\n";
+        }else{
+
+            cout << "Welcome to the financial system" <<"\n"
+                 << "Which function would you like to use?" <<"\n"
+                 << "Would you like to ..."<<"\n"
+                 << "1. book posting records?"<<"\n"
+                 << "2. look at the chart of accounts?"<<"\n"
+                 << "3. write off investments?"<<"\n"
+                 << "4. change the language?"<<"\n"
+                 << "5. manage the employee accounts?"<<"\n"
+                 << "6. open a new bank account?"<<"\n"
+                 << "7. Logout/switch accounts?" << "\n";
+                 if(access > 2){
+                     cout << "8. look at the balance?"<<"\n"
+                          << "9. process requests?"<<"\n";
+                 }
+                 cout << "x: Exit the program"<<"\n";
         }
 
         cout << endl;
@@ -99,7 +120,11 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
             case 3: // Abschreibungen
             {
                 int choice;
-                cout << "Moechten Sie ein Gut Abschreiben [a] oder Anlegen? [b]" << endl;
+                if(deutsch) {
+                    cout << "Moechten Sie ein Gut Abschreiben [a] oder Anlegen? [b]" << endl;
+                }else{
+                    cout << "Would you like to write off an investment [a] or to create a new one [b] ?"<<"\n";
+                }
                 cin >> choice;
                 cout << endl;
                 switch (choice)
@@ -129,8 +154,13 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                     break;
                     */
                 case 4: // Sprache Ändern
-                    cout << "Sprache Ändern" << endl;
-                    deutsch = true;
+                    //cout << "Sprache aendern" << endl;
+
+                    if(deutsch){
+                        deutsch = false;
+                    }else{
+                        deutsch = true;
+                    }
                 break;
 
 
@@ -151,10 +181,14 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
                 case 7:
 
-
                     access = acs1.logout();
 
                 break;
+
+                case 10:
+
+
+                    break;
                 /*if (rechte)
                 {
                     case 6: // Bilanz

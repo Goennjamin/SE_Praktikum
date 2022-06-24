@@ -65,6 +65,8 @@ bool looploop = true;
 
 while(looploop) {
 
+    setSprache(language);
+
     //int access = login();
 
     if (access!= 0) {
@@ -169,7 +171,9 @@ while(looploop) {
 
                             std::string n;
 
-                            std::cout << "Please insert the new Username" << "\n";
+                            if(language){
+                                std::cout << "Bitte geben Sie den neuen Nutzernamen ein"<<"\n";
+                            }else { std::cout << "Please insert the new Username" << "\n"; }
 
 
                             std::cin >> n;
@@ -183,7 +187,12 @@ while(looploop) {
 
                             std::string n;
 
-                            std::cout << "Please insert the new Password" << "\n";
+                            if(language){
+                                std::cout << "Bitte geben Sie das neue Passwort ein"<<"\n";
+                            }else {
+                                std::cout << "Please insert the new Password" << "\n";
+                            }
+
                             std::cin >> n;
 
                             set_acc_password(const_cast<account &>(getAcclist().at(id)), n);
@@ -195,7 +204,9 @@ while(looploop) {
 
                             int level;
 
-                            std::cout << "Which account level should be set?" << "\n";
+                            if(language){
+                                std::cout << "Auf welches Level soll die Berechtigung des Accounts gesetzt werden?"<<"\n";
+                            }else { std::cout << "Which account level should be set?" << "\n"; }
                             std::cin >> level;
 
                             set_acc_level(const_cast<account &>(getAcclist().at(id)), level);
@@ -207,11 +218,18 @@ while(looploop) {
                     }
                 } else if(y == 2 && access < 3){
 
-                    std::cout << "You have no permission to perform this action"<<"\n";
-
+                    if(language){
+                        std::cout << "Sie haben keine Berechtigung um diese Aktion auszufuehren"<<"\n";
+                    }else {
+                        std::cout << "You have no permission to perform this action" << "\n";
+                    }
                 }else{
 
-                    std::cout << "There are no accounts to manage, please create an account first" << "\n";
+                    if(language){
+                        std::cout << "Es sind keine Accounts vorhanden, bitte erstellen Sie erst einen Account"<<"\n";
+                    }else{
+                        std::cout << "There are no accounts to manage, please create an account first" << "\n";
+                    }
 
                 }
             }
@@ -221,8 +239,11 @@ while(looploop) {
 
                 print_list();
 
-                std::cout <<"Please insert the account ID that you want to delete"<<"\n";
-
+                if(language){
+                    std::cout << "Bitte geben sie die ID von dem zu löschenden Account ein"<<"\n";
+                }else {
+                    std::cout << "Please insert the account ID from the Account that you want to delete" << "\n";
+                }
                 int o;
                 std::cin>> o;
 
@@ -280,7 +301,15 @@ int ACS::login() {
 
     std::string name;
 
-    std::cout<<"Please enter your Username"<<"\n";
+    bool deutsch = getSprache();
+
+
+    if(deutsch){
+        std::cout<<"Bitte gib einen Benutzernamen ein"<<"\n";
+    }else {
+
+        std::cout << "Please enter your Username" << "\n";
+    }
     std::cin >> name;
 
 
@@ -300,22 +329,40 @@ int ACS::login() {
     }
 
     if(!succ){
-        std::cout<<"Invalid username, please try again"<<"\n";
+        if(deutsch){
+            std::cout << "Ungueltiger Nutzername, bitte erneut versuchen"<<"\n";
+        }else {
+            std::cout << "Invalid username, please try again" << "\n";
+        }
         return 0;
     }else {
-        std::cout << "Please enter your Password" << "\n";
+        if(deutsch){
+            std::cout << "Bitte geben Sie das Passwort ein"<<"\n";
+        }else {
+
+            std::cout << "Please enter your Password" << "\n";
+        }
         std::cin.clear();
 
         std::string pw;
         std::cin >> pw;
         if (acclist.at(i).getPassword() != pw) {
 
-            std::cout << "Invalid password, please try again" << "\n";
+            if(deutsch){
+                std::cout << "Ungueltiges Passwort, bitte erneut versuchen"<<"\n";
+            }
+            else{
+                std::cout << "Invalid password, please try again" << "\n";
+            }
             return 0;
 
         } else {
 
-            std::cout << "Welcome " << acclist.at(i).getUsername() << "\n";
+            if(deutsch){
+                std::cout << "Willkommen " << acclist.at(i).getUsername() << "\n";
+            }else {
+                std::cout << "Welcome " << acclist.at(i).getUsername() << "\n";
+            }
             return acclist.at(i).getAccLevel();
         }
     }//else succ
@@ -341,5 +388,15 @@ void ACS::removeAccount() {
 
 
 
+}
+
+void ACS::setSprache(bool &s) {
+
+    sprache = s;
+
+}
+
+bool ACS::getSprache() {
+    return sprache;
 };
 

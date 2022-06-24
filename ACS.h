@@ -19,7 +19,7 @@ class ACS {
 private:
 
     std::vector<account> acclist;
-
+    bool sprache = true;
 
 
 public:
@@ -34,6 +34,8 @@ public:
     bool has_account();
     int login();
     int logout();
+    void setSprache(bool &s);
+    bool getSprache();
 
     const std::vector<account> &getAcclist() const;
 
