@@ -1,0 +1,6 @@
+100000 Elektrisch_hoehenverstellbarer_Schreibtisch 620 620 10 10
+100001 Wilkhahn_Mesh_Stuhl 610 549 10 5
+100002 Phillips_Kaffevollautomat 300 225 8 6
+100003 HP_Laserjet_Enterprise 1800 1800 25 25
+100004 Office_PC_Core_i5_10400 480 384 10 8
+100005 Yealink_Telefon_SIP-T54W 150 150 20 20

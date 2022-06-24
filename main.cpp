@@ -2,6 +2,7 @@
 #include "ACS.h"
 #include <string>
 #include <fstream>
+#include "sstream"
 #include "kontenmanagement.h"
 
 using namespace std;
@@ -119,40 +120,76 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
             }
             case 3: // Abschreibungen
             {
-                int choice;
-                if(deutsch) {
-                    cout << "Moechten Sie ein Gut Abschreiben [a] oder Anlegen? [b]" << endl;
-                }else{
-                    cout << "Would you like to write off an investment [a] or to create a new one [b] ?"<<"\n";
-                }
-                cin >> choice;
-                cout << endl;
-                switch (choice)
-                    case 'a': {
-                        ifstream abs("Goods.txt");
-                    }
-
-                //
-
-
-
-                /*case 'b':
+                if (deutsch)
                 {
-                    cout << "Welches Gut moechten Sie Anlegen?" << endl;
-                    int Kennung = 100000; //erste gut hat nummber 100000, daraufhin wird die letzte line genommen, atoi zum kennung auslesen, kennung++ für nächstes gut
-                    string Bezeichnung;
-                    int Wert;
-                    int Dauer;
-                    cout << "Bitte geben Sie die Bezeichnung, den Wert und die vorraussichtliche Dauer des Guts in Ihrem Unternehmen an" << endl;
-                    cin >> Bezeichnung >> Wert >> Dauer;
-                    for (Kennung;; Kennung++)
+
+                    string line;
+
+                    ifstream fascilities("fascilities.txt");
+                    fstream fascilities_edited("fascilities_edited.txt");
+                    if (fascilities)
                     {
-                        cout << Kennung << " " << Bezeichnung << " " << Wert << " " << Dauer;
+                        while (getline(fascilities, line))
+                        {
+                            istringstream ss(line);
+
+                            int artikelnummer;
+                            string artikelname;
+                            int listenpreis;
+                            int restwert;
+                            int dauer;
+                            int restdauer;
+                            ss >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
+                            cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer;
+
+
+                            istringstream ss2;
+                            restwert = restwert - (listenpreis / dauer);
+                            restdauer--;
+                            ss2 >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
+                            cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer;
+                            if (fascilities_edited.is_open())
+                            {
+                                fascilities_edited << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer;
+                                fascilities_edited << " " << restdauer << "\n";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string line;
+                        ifstream fasilitieseng("fascilitieseng.txt");
+                        fstream fascilitieseng_edited("fascilitieseng_edited.txt");
+                        if (fascilities)
+                        {
+                            while (getline(fasilitieseng, line))
+                            {
+                                istringstream ss(line);
+                                int artikelnummer;
+                                string artikelname;
+                                int listenpreis;
+                                int restwert;
+                                int dauer;
+                                int restdauer;
+                                ss >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
+                                cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer;
+
+
+                                istringstream ss2;
+                                restwert = restwert - (listenpreis / dauer);
+                                restdauer--;
+                                ss2 >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
+                                cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer;
+                                if (fascilitieseng_edited.is_open())
+                                {
+                                    fascilitieseng_edited << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer;
+                                    fascilitieseng_edited << " " << restdauer << "\n";
+                                }
+                            }
+                        }
+
                     }
                 }
-                }
-                    break;
-                    */
                 case 4: // Sprache Ändern
                     //cout << "Sprache aendern" << endl;
 
