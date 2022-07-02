@@ -16,7 +16,7 @@ void management::speicherBuchungssatz(bool language, buchungssatz bs) {
 
     ofstream fout;
     string line;
-    if(language){
+    if (language) {
 
 
 
@@ -26,7 +26,9 @@ void management::speicherBuchungssatz(bool language, buchungssatz bs) {
         // Execute a loop If file successfully opened
         while (fout) {
 
-            fout << setw(10) << bs.getAn() << setw(10)  <<bs.getBetrag() << setw(10) <<"Euro"<< "an"<< setw(10) << bs.getVon() << setw(10) << "mit Steuersatz von" << bs.getSteuersatz() <<endl;
+            fout << setw(10) << bs.getAn() << setw(10) << bs.getBetrag() << setw(10) << "Euro" << "an" << setw(10)
+                 << bs.getVon() << setw(10) <<
+                 "mit Steuersatz von" << bs.getSteuersatz() << endl;
             fout << endl;
             fout << endl;
 
@@ -34,23 +36,37 @@ void management::speicherBuchungssatz(bool language, buchungssatz bs) {
 
         fout.close();
 
-    }else{
+    } else {
+        fout.open((R"(..\Uebersicht_Buchungssaetze.txt)"));
+
+        // Execute a loop If file successfully opened
+        while (fout) {
+
+            fout << setw(10) << bs.getAn() << setw(10) << bs.getBetrag() << setw(10) << "Euro" << "to" << setw(10)
+                 << bs.getVon() << setw(10) <<
+                 "mit Steuersatz von" << bs.getSteuersatz() << endl;
+            fout << endl;
+            fout << endl;
+
+
+        }
+        fout.close();
 
     }
-void management::
 }
 
-bool management::ueberpruefeExistenz(string kname) {
 
-    for(int i=0;i < Management.size(); i++){
-        if(Management.at(i).getName() == kname)
-            return true;
+    bool management::ueberpruefeExistenz(string kname) {
+
+        for (int i = 0; i < Management.size(); i++) {
+            if (Management.at(i).getName() == kname)
+                return true;
+        }
+        return false;
     }
-    return false;
-}
 
-bool management::leeresManagement() {
-    if(Management.empty())return true;
+    bool management::leeresManagement() {
+        if (Management.empty())return true;
 
-    return false;
-}
+        return false;
+    }

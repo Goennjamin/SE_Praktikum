@@ -32,7 +32,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
     int access = acs1.login();
 
-    while(true) {
+    while (true) {
 
         if (access == 0) {
 
@@ -40,7 +40,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
         }
 
-        if(deutsch) {
+        if (deutsch) {
 
             cout << "Willkommen im Finanzsystem!" << endl;
             cout << "Welche Funktion des Finanzsystems wollen Sie verwenden?" << endl;
@@ -57,24 +57,24 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                      << endl; // Verschachteltes Menü, Bilanz zu einem gewissen Zeitpunkt ausgeben, aktuell ausgeben?
                 cout << "9. Anfragen bearbeiten?" << endl;
             }
-            std::cout << "x: Das Programm beenden"<<"\n";
-        }else{
+            std::cout << "x: Das Programm beenden" << "\n";
+        } else {
 
-            cout << "Welcome to the financial system" <<"\n"
-                 << "Which function would you like to use?" <<"\n"
-                 << "Would you like to ..."<<"\n"
-                 << "1. book posting records?"<<"\n"
-                 << "2. look at the chart of accounts?"<<"\n"
-                 << "3. write off investments?"<<"\n"
-                 << "4. change the language?"<<"\n"
-                 << "5. manage the employee accounts?"<<"\n"
-                 << "6. open a new bank account?"<<"\n"
+            cout << "Welcome to the financial system" << "\n"
+                 << "Which function would you like to use?" << "\n"
+                 << "Would you like to ..." << "\n"
+                 << "1. book posting records?" << "\n"
+                 << "2. look at the chart of accounts?" << "\n"
+                 << "3. write off investments?" << "\n"
+                 << "4. change the language?" << "\n"
+                 << "5. manage the employee accounts?" << "\n"
+                 << "6. open a new bank account?" << "\n"
                  << "7. Logout/switch accounts?" << "\n";
-                 if(access > 2){
-                     cout << "8. look at the balance?"<<"\n"
-                          << "9. process requests?"<<"\n";
-                 }
-                 cout << "x: Exit the program"<<"\n";
+            if (access > 2) {
+                cout << "8. look at the balance?" << "\n"
+                     << "9. process requests?" << "\n";
+            }
+            cout << "x: Exit the program" << "\n";
         }
 
         cout << endl;
@@ -85,23 +85,22 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
         switch (userinput) {
             case 1: // Buchungssätze
             {       // validiere input -> gibt es die konten überhaupt?, ertstelle ein objekt des typs buchungssatz
-                    // buchungssatz schreiben in file
-                    // gehe in konten rein und führe die buchung durch
-                    // schreibe den buchungssatz in das "Jahr-Array" von management
+                // buchungssatz schreiben in file
+                // gehe in konten rein und führe die buchung durch
+                // schreibe den buchungssatz in das "Jahr-Array" von management
 
 
-                    //buchungssatz in konsole ausgeben
+                //buchungssatz in konsole ausgeben
 
 
-                    //optional steuersatz verändern
+                //optional steuersatz verändern
 
 
-                }
+            }
 
 
                 menuBuchung(KontoManager);
                 break;
-            }
 
 
             case 2: // Kontenplan
@@ -145,7 +144,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                             int restdauer;
                             ss >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
                             cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " "
-                                 << dauer << " " << restdauer <<"\n";
+                                 << dauer << " " << restdauer << "\n";
 
 
                             istringstream ss2;
@@ -153,7 +152,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                             restdauer--;
                             ss2 >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
                             cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " "
-                                 << dauer << " " << restdauer<<"\n";
+                                 << dauer << " " << restdauer << "\n";
                             if (fascilities_edited.is_open()) {
                                 fascilities_edited << artikelnummer << " " << artikelname << " " << listenpreis << " "
                                                    << restwert << " " << dauer;
@@ -162,86 +161,83 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                         }
                     }
                     break;
-                }
-                else
-                    {
-                        string line;
-                        ifstream fasilitieseng(R"(..\fascilitieseng.txt)");
-                        fstream fascilitieseng_edited(R"(..\fascilitieseng_edited.txt)");
-                        if (fasilitieseng)
-                        {
-                            while (getline(fasilitieseng, line))
-                            {
-                                istringstream ss(line);
-                                int artikelnummer;
-                                string artikelname;
-                                int listenpreis;
-                                int restwert;
-                                int dauer;
-                                int restdauer;
-                                ss >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
-                                cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer <<"\n";
+                } else {
+                    string line;
+                    ifstream fasilitieseng(R"(..\fascilitieseng.txt)");
+                    fstream fascilitieseng_edited(R"(..\fascilitieseng_edited.txt)");
+                    if (fasilitieseng) {
+                        while (getline(fasilitieseng, line)) {
+                            istringstream ss(line);
+                            int artikelnummer;
+                            string artikelname;
+                            int listenpreis;
+                            int restwert;
+                            int dauer;
+                            int restdauer;
+                            ss >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
+                            cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " "
+                                 << dauer << " " << restdauer << "\n";
 
 
-                                istringstream ss2;
-                                restwert = restwert - (listenpreis / dauer);
-                                restdauer--;
-                                ss2 >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
-                                cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer <<"\n";
-                                if (fascilitieseng_edited.is_open())
-                                {
-                                    fascilitieseng_edited << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer;
-                                    fascilitieseng_edited << " " << restdauer << "\n";
-                                }
+                            istringstream ss2;
+                            restwert = restwert - (listenpreis / dauer);
+                            restdauer--;
+                            ss2 >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
+                            cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " "
+                                 << dauer << " " << restdauer << "\n";
+                            if (fascilitieseng_edited.is_open()) {
+                                fascilitieseng_edited << artikelnummer << " " << artikelname << " " << listenpreis
+                                                      << " " << restwert << " " << dauer;
+                                fascilitieseng_edited << " " << restdauer << "\n";
                             }
                         }
-
                     }
-                break;
+
                 }
-                case 4: // Sprache Ändern
-                    //cout << "Sprache aendern" << endl;
-
-                    if(deutsch){
-                        deutsch = false;
-                    }else{
-                        deutsch = true;
-                    }
                 break;
-
-
-                case 5:
-
-
-                    acs1.manage_accounts(access, deutsch);
-
-
-                break;
-
-                case 6:
-
-
-                    kontoHinzufugen(KontoManager);
-
-                    break;
-
-                case 7:
-
-                    access = acs1.logout();
-
-                break;
-
-                case 10:
-
-
-                    break;
-
-
-
             }
-        }
+            case 4: // Sprache Ändern
+                //cout << "Sprache aendern" << endl;
 
+                if (deutsch) {
+                    deutsch = false;
+                } else {
+                    deutsch = true;
+                }
+                break;
+
+
+            case 5:
+
+
+                acs1.manage_accounts(access, deutsch);
+
+
+                break;
+
+            case 6:
+
+
+                kontoHinzufugen(KontoManager);
+
+                break;
+
+            case 7:
+
+                access = acs1.logout();
+
+                break;
+
+            case 10:
+
+
+                break;
+
+
+        }
     }
+
+}
 
 
 
