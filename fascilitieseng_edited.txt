@@ -1,0 +1,7 @@
+100000 Electrical_Desk 620 558 10 9
+100001 Wilkhahn_Mesh_Chair 610 488 10 4
+100002 Phillips_Coffeemachine 300 188 8 5
+100003 HP_Laserjet_Enterprise 1800 1728 25 24
+100004 Office_PC_Core_i5_10400 480 336 10 7
+100005 Yealink_Phone_SIP-T54W 150 143 20 19
+W 150 143 20 19
