@@ -5,14 +5,14 @@
 #include <iostream>
 #include <iomanip>
 #include <map>
-
+#include "buchungssatz.h"
 
 using namespace std;
-class konto
+class konto : public buchungssatz
 {
 public:
     konto();
-    konto(string name, string kontoart);
+    konto(string name, string kontoart,vector<buchungssatz> bs );
     vector <konto> Konten ;
 
     void BuchungssatzDurchfuehren(string kontoSoll,string kontoHaben, int betrag);
@@ -23,9 +23,8 @@ public:
 
     const string &getArt() const;
 
-    const vector<int> &getSoll() const;
 
-    const vector<int> &getHaben() const;
+
 
     bool ueberpruefeAnlagevermoegen(string name);
     bool ueberpruefeEigenkaptal(string name);
@@ -37,7 +36,9 @@ private:
     string name;
     string art;
     unsigned int id;
-
+    int Aktiva,Passiva;
+    string Soll,Haben;
+    vector<buchungssatz> bs;
 };
 
 #endif // KONTO_H

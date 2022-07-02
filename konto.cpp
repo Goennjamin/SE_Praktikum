@@ -1,11 +1,12 @@
 #include "konto.h"
+#include <vector>
 
 konto::konto()
 {
 
 }
 
-konto::konto(string name, string kontoart) : name(name), art(kontoart)
+konto::konto(string name, string kontoart,vector<buchungssatz> bs) : name(name), art(kontoart)
 {
     map<string,int> Eigenkapital = {};
     map<string,int> Anlagevermoegen = {};
@@ -31,17 +32,11 @@ konto konto::sucheKonto(string kontoname)
 
 
 
-const vector<int> &konto::getHaben() const
-{
-    return Haben;
-}
 
 
 
-const vector<int> &konto::getSoll() const
-{
-    return Soll;
-}
+
+
 
 const string &konto::getArt() const
 {
@@ -51,34 +46,7 @@ const string &konto::getArt() const
 void konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int betrag)
 { konto KontoSoll = sucheKonto(kontoSoll);
     konto KontoHaben = sucheKonto(kontoHaben);
-//Soll_Konten
-    if(KontoSoll.getArt() == "Aktivkonto"){
-        Soll.push_back(betrag);
 
-    }
-    else if(KontoSoll.getArt() == "Passivkonto"){
-        Soll.push_back(betrag * (-1));
-    }
-    else if(KontoSoll.getArt() == "Aufwandskonto"){
-        Soll.push_back(betrag);
-    }
-    else{
-        Soll.push_back(betrag);
-    }
-//Haben_Konten
-    if(KontoSoll.getArt() == "Aktivkonto"){
-        Haben.push_back(betrag);
-
-    }
-    else if(KontoSoll.getArt() == "Passivkonto"){
-        Haben.push_back(betrag * (-1));
-    }
-    else if(KontoSoll.getArt() == "Aufwandskonto"){
-        Haben.push_back(betrag);
-    }
-    else{
-        Haben.push_back(betrag);
-    }
 
 }
 

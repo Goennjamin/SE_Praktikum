@@ -1,5 +1,5 @@
-#ifndef KONTENMANAGEMENT_H
-#define KONTENMANAGEMENT_H
+#ifndef MANAGEMENT_H
+#define MANAGEMENT_H
 #include "konto.h"
 #include "buchungssatz.h"
 #include <vector>
@@ -7,7 +7,7 @@
 
 using namespace  std;
 
-class management : public konto, public buchungssatz {
+class management : public konto{
 public:
     management();
 
@@ -27,5 +27,8 @@ private:
 // ganzes Jahr ausgeben
 //read write
 
+
+public:
+    vector<konto> getManagement();
 };
-#endif KONTENMANAGEMENT_H
+#endif //MANAGEMENT_H

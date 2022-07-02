@@ -32,7 +32,7 @@ public:
     void set_acc_level(account &a, int l);
     void print_list();
     bool has_account();
-    int login();
+    int login(bool sprache);
     int logout();
     void setSprache(bool &s);
     bool getSprache();

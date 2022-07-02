@@ -297,14 +297,14 @@ ACS::~ACS() {
 
 }
 
-int ACS::login() {
+int ACS::login(bool sprache) {
 
     std::string name;
 
-    bool deutsch = getSprache();
+    //bool sprache = getSprache();
 
 
-    if(deutsch){
+    if(sprache){
         std::cout<<"Bitte gib einen Benutzernamen ein"<<"\n";
     }else {
 
@@ -329,14 +329,14 @@ int ACS::login() {
     }
 
     if(!succ){
-        if(deutsch){
+        if(sprache){
             std::cout << "Ungueltiger Nutzername, bitte erneut versuchen"<<"\n";
         }else {
             std::cout << "Invalid username, please try again" << "\n";
         }
         return 0;
     }else {
-        if(deutsch){
+        if(sprache){
             std::cout << "Bitte geben Sie das Passwort ein"<<"\n";
         }else {
 
@@ -348,7 +348,7 @@ int ACS::login() {
         std::cin >> pw;
         if (acclist.at(i).getPassword() != pw) {
 
-            if(deutsch){
+            if(sprache){
                 std::cout << "Ungueltiges Passwort, bitte erneut versuchen"<<"\n";
             }
             else{
@@ -358,7 +358,7 @@ int ACS::login() {
 
         } else {
 
-            if(deutsch){
+            if(sprache){
                 std::cout << "Willkommen " << acclist.at(i).getUsername() << "\n";
             }else {
                 std::cout << "Welcome " << acclist.at(i).getUsername() << "\n";

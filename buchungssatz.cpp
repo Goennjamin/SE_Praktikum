@@ -20,8 +20,9 @@ void buchungssatz::printBuchungssatz(string kontoSoll, string kontoHaben, int be
     cout << "Der Buchungssatz lautet:" << endl;
     cout << setw(10) << kontoSoll << setw(10)  <<betrag << setw(10) <<"Euro  "<< "an"<< setw(10) << kontoHaben << endl;
     }
-    else{
-        // TODO
+    else if(!language){
+        cout << "The booking looks as follows:" << endl;
+        cout << setw(10) << kontoSoll << setw(10)  <<betrag << setw(10) <<"Euro  "<< "to"<< setw(10) << kontoHaben << endl;
     }
 
 }
@@ -59,6 +60,10 @@ int buchungssatz::getSteuersatz() const {
 
 bool buchungssatz::isLanguage() const {
     return language;
+}
+
+buchungssatz::buchungssatz(int datum, const string &an, const string &von, int betrag, int steuersatz) {
+
 }
 
 

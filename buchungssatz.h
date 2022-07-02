@@ -19,7 +19,7 @@ public:
     buchungssatz(int datum, const string &an, const string &von, int betrag, int steuersatz);
 
 
-    void printBuchungssatz(string kontoSoll, string kontoHaben, int betrag, bool language);
+    virtual void printBuchungssatz(string kontoSoll, string kontoHaben, int betrag, bool language);
 
 
 
