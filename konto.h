@@ -4,21 +4,22 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include <map>
 
 
 using namespace std;
-class Konto
+class konto
 {
 public:
-    Konto();
-    Konto(string name,string kontoart);
-    vector <Konto> Konten ;
+    konto();
+    konto(string name, string kontoart);
+    vector <konto> Konten ;
 
     void BuchungssatzDurchfuehren(string kontoSoll,string kontoHaben, int betrag);
 
     const string &getName() const;
 
-    const vector<Konto> &getKonten() const;
+    const vector<konto> &getKonten() const;
 
     const string &getArt() const;
 
@@ -26,15 +27,16 @@ public:
 
     const vector<int> &getHaben() const;
 
-    void printBuchungssatz(string kontoSoll, string kontoHaben, int betrag);
-
+    bool ueberpruefeAnlagevermoegen(string name);
+    bool ueberpruefeEigenkaptal(string name);
+    bool ueberpruefeFremdkapital(string name);
+    bool ueberpruefeUmlaufvermoegen(string name);
 private:
-    Konto sucheKonto(string kontoname);
+    konto sucheKonto(string kontoname);
     // vector<Konto> KontoHinzufuegen(Konto & k);
     string name;
     string art;
-    vector<int> Soll;
-    vector<int> Haben;
+    unsigned int id;
 
 };
 

@@ -3,15 +3,15 @@
 #include <string>
 #include <fstream>
 #include "sstream"
-#include "kontenmanagement.h"
+#include "management.h"
 
 using namespace std;
 
 bool rechte(false);
 bool deutsch(true);
 
-void kontoHinzufugen(Kontenmanagement & km);
-void menuBuchung(Kontenmanagement & km);
+void kontoHinzufugen(management & km);
+void menuBuchung(management & km);
 
 //funktion des logins mit login daten
 
@@ -28,7 +28,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 {
     ACS acs1;
 
-    Kontenmanagement KontoManager = Kontenmanagement();
+    management KontoManager = management();
 
     int access = acs1.login();
 
@@ -84,10 +84,17 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
         switch (userinput) {
             case 1: // Buchungssätze
-            {
+            {       // validiere input -> gibt es die konten überhaupt?, ertstelle ein objekt des typs buchungssatz
+                    // buchungssatz schreiben in file
+                    // gehe in konten rein und führe die buchung durch
+                    // schreibe den buchungssatz in das "Jahr-Array" von management
 
-                for (int i = 0; i < 3; i++) {
-                    KontoManager.kontoHinzufuegen(KontoManager);
+
+                    //buchungssatz in konsole ausgeben
+
+
+                    //optional steuersatz verändern
+
 
                 }
 
@@ -120,17 +127,14 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
             }
             case 3: // Abschreibungen
             {
-                if (deutsch)
-                {
+                if (deutsch) {
 
                     string line;
 
-                    ifstream fascilities("fascilities.txt");
-                    fstream fascilities_edited("fascilities_edited.txt");
-                    if (fascilities)
-                    {
-                        while (getline(fascilities, line))
-                        {
+                    ifstream fascilities(R"(..\fascilities.txt)");
+                    fstream fascilities_edited(R"(..\fascilities_edited.txt)");
+                    if (fascilities) {
+                        while (getline(fascilities, line)) {
                             istringstream ss(line);
 
                             int artikelnummer;
@@ -140,27 +144,31 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                             int dauer;
                             int restdauer;
                             ss >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
-                            cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer;
+                            cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " "
+                                 << dauer << " " << restdauer <<"\n";
 
 
                             istringstream ss2;
                             restwert = restwert - (listenpreis / dauer);
                             restdauer--;
                             ss2 >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
-                            cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer;
-                            if (fascilities_edited.is_open())
-                            {
-                                fascilities_edited << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer;
+                            cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " "
+                                 << dauer << " " << restdauer<<"\n";
+                            if (fascilities_edited.is_open()) {
+                                fascilities_edited << artikelnummer << " " << artikelname << " " << listenpreis << " "
+                                                   << restwert << " " << dauer;
                                 fascilities_edited << " " << restdauer << "\n";
                             }
                         }
                     }
-                    else
+                    break;
+                }
+                else
                     {
                         string line;
-                        ifstream fasilitieseng("fascilitieseng.txt");
-                        fstream fascilitieseng_edited("fascilitieseng_edited.txt");
-                        if (fascilities)
+                        ifstream fasilitieseng(R"(..\fascilitieseng.txt)");
+                        fstream fascilitieseng_edited(R"(..\fascilitieseng_edited.txt)");
+                        if (fasilitieseng)
                         {
                             while (getline(fasilitieseng, line))
                             {
@@ -172,14 +180,14 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                                 int dauer;
                                 int restdauer;
                                 ss >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
-                                cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer;
+                                cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer <<"\n";
 
 
                                 istringstream ss2;
                                 restwert = restwert - (listenpreis / dauer);
                                 restdauer--;
                                 ss2 >> artikelnummer >> artikelname >> listenpreis >> restwert >> dauer >> restdauer;
-                                cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer;
+                                cout << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer << " " << restdauer <<"\n";
                                 if (fascilitieseng_edited.is_open())
                                 {
                                     fascilitieseng_edited << artikelnummer << " " << artikelname << " " << listenpreis << " " << restwert << " " << dauer;
@@ -189,6 +197,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                         }
 
                     }
+                break;
                 }
                 case 4: // Sprache Ändern
                     //cout << "Sprache aendern" << endl;
@@ -226,74 +235,17 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
 
                     break;
-                /*if (rechte)
-                {
-                    case 6: // Bilanz
-                        cout << "Bilanz " << endl;
-                    break;
-                    case 7: // Anfragen Bearbeiten -- Anfragen Erstellen?
-                        cout << "Rechte Vorhanden" << endl;
-                    break;
-                }*/
 
-                /*
-                    ifstream txt;
-                    txt.open("C:\\Users\\GRyzL\\source\\repos\\michaellord\\txt.txt");
-                    if (!txt)
-                    {
-                        ofstream txtcreate("C:\\Users\\GRyzL\\source\\repos\\michaellord\\txt.txt");
-                    }
-                    if (txt)
-                    {
-                        ofstream outfile("edited.txt"); //erstellen der edited.txt
-                        fstream edited; //opened for output and input
-                        edited.open("C:\\Users\\GRyzL\\source\\repos\\michaellord\\edited.txt");
-                        if (!edited)
-                        {
-                            cerr << "Unable to open file edited.txt";
-                            exit(1);
-                        }
 
-                        if (edited)
-                        {
-                            int index;
-                            string line;
-                            const string searchfor("such begriff");
-                            const string exchangewith("exchange begriff");
-                            //getline(lord, line);
-                            //cout << line << endl; eine zeile
-                            getline(txt, line);
-                            for (int i = 0; i < 147; i++)
-                            {
-                                getline(txt, line);
-                                cout << line << endl;
-                                if (line.find(searchfor))
-                                {
-                                    while ((index = line.find(searchfor)) != string::npos)
-                                    {
-                                        line.erase(index, searchfor.length());
-                                        line.insert(index, exchangewith);
 
-                                    }
-                                }
-                                outfile << line << endl;
-
-                            }
-                            edited.close();
-                        }
-
-                    }
-                    txt.close();
-                    return 0;
-                    */
             }
         }
 
     }
-    }
 
 
-void kontoHinzufugen(Kontenmanagement & km){
+
+void kontoHinzufugen(management & km){
     cout << "Hiermit legen Sie ein neues Konto an:" << endl;
     cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
     string name{};
@@ -301,14 +253,36 @@ void kontoHinzufugen(Kontenmanagement & km){
     cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
     string art;
     cin >> art;
-    Konto k(name,art);
+    konto k(name, art);
     km.kontoHinzufuegen(k);
 }
 
-void menuBuchung(Kontenmanagement & km) {
+void menuBuchung(management & km) {
     string kontoSoll{};
     string kontoHaben{};
     int betrag{};
+    cout << "Bitte geben Sie den Kontonamen ein, auf das Sie zugreifen wollen." << endl;
+    string konto;
+    cin >> konto;
+    if(km.leeresManagement()){ cout << "Es wurden noch keine Konten angelegt. Sie werden zum Hauptmenue zurückgeführt." << endl;
+
+    }else{
+        bool namecorrect = true;
+        while(namecorrect){
+
+        if(!km.ueberpruefeExistenz(konto)){
+            cout << "Das Konto ist nicht vorhanden. Ueberpruefen Sie die Rechtschreibung oder geben Sie ein anderes Konto an. " << endl;
+        }
+        else if(km.ueberpruefeExistenz(konto)){
+            namecorrect =false;
+
+        }
+
+
+        }
+    }
+
+
     cout << "Bitte geben Sie das Konto ein von dem Sie buchen wollen" << endl;
     cin >> kontoSoll;
     cout << "Bitte geben Sie das Konto ein auf welches Sie buchen wollen" << endl;
@@ -324,5 +298,5 @@ void menuBuchung(Kontenmanagement & km) {
     cin >> eingabe;
 
     km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
-    km.printBuchungssatz(kontoSoll, kontoHaben, betrag);
+    km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
 }

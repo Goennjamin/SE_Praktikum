@@ -1,24 +1,26 @@
 #include "konto.h"
 
-Konto::Konto()
+konto::konto()
 {
 
 }
 
-Konto::Konto(string name, string kontoart) : name(name), art(kontoart)
+konto::konto(string name, string kontoart) : name(name), art(kontoart)
 {
-    Soll ={};
-    Haben={};
+    map<string,int> Eigenkapital = {};
+    map<string,int> Anlagevermoegen = {};
+    map<string,int> Fremdkapital = {};
+    map<string,int> Umlaufvermoegen ={};
 }
 
-const vector<Konto> &Konto::getKonten() const
+const vector<konto> &konto::getKonten() const
 {
     return Konten;
 }
 
 
-Konto Konto::sucheKonto(string kontoname)
-{Konto gefKonto{};
+konto konto::sucheKonto(string kontoname)
+{konto gefKonto{};
     for(const auto& value: Konten ){
         if(value.name == kontoname)
             gefKonto = value;
@@ -29,32 +31,26 @@ Konto Konto::sucheKonto(string kontoname)
 
 
 
-const vector<int> &Konto::getHaben() const
+const vector<int> &konto::getHaben() const
 {
     return Haben;
 }
 
-void Konto::printBuchungssatz(string kontoSoll, string kontoHaben, int betrag)
-{
-    cout << "Der Buchungssatz lautet:" << endl;
-    cout << setw(10) << kontoSoll << setw(10)  <<betrag << setw(10) <<"Euro  "<< "an"<< setw(10) << kontoHaben << endl;
 
 
-}
-
-const vector<int> &Konto::getSoll() const
+const vector<int> &konto::getSoll() const
 {
     return Soll;
 }
 
-const string &Konto::getArt() const
+const string &konto::getArt() const
 {
     return art;
 }
 
-void Konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int betrag)
-{ Konto KontoSoll = sucheKonto(kontoSoll);
-    Konto KontoHaben = sucheKonto(kontoHaben);
+void konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int betrag)
+{ konto KontoSoll = sucheKonto(kontoSoll);
+    konto KontoHaben = sucheKonto(kontoHaben);
 //Soll_Konten
     if(KontoSoll.getArt() == "Aktivkonto"){
         Soll.push_back(betrag);
@@ -86,7 +82,7 @@ void Konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int be
 
 }
 
-const string &Konto::getName() const
+const string &konto::getName() const
 {
     return name;
 }

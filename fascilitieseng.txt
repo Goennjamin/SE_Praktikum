@@ -1,4 +1,4 @@
-100000 Electrical Desk 620 620 10 10
+100000 Electrical_Desk 620 620 10 10
 100001 Wilkhahn_Mesh_Chair 610 549 10 5
 100002 Phillips_Coffeemachine 300 225 8 6
 100003 HP_Laserjet_Enterprise 1800 1800 25 25
