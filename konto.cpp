@@ -44,8 +44,20 @@ const string &konto::getArt() const
 }
 
 void konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int betrag)
-{ konto KontoSoll = sucheKonto(kontoSoll);
+{
+
+    konto KontoSoll = sucheKonto(kontoSoll);
     konto KontoHaben = sucheKonto(kontoHaben);
+
+    cout << "Bitte geben Sie ein Datum ein" << endl;
+    int datum{};
+    cin >> datum;
+    cout << "Welchen Steuersatz wollen Sie verwenden?"<< endl;
+
+
+    buchungssatz b1 = buchungssatz(datum, KontoSoll.getName(), KontoHaben.getName(), betrag);
+
+
 
 
 }
@@ -54,3 +66,4 @@ const string &konto::getName() const
 {
     return name;
 }
+

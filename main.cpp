@@ -9,6 +9,7 @@ using namespace std;
 
 bool rechte(false);
 bool deutsch;
+vector<buchungssatz> jahr;
 
 void kontoHinzufugen(management & km);
 void menuBuchung(management & km, bool sprache);
@@ -99,24 +100,24 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
         cout << endl;
 
         switch (userinput) {
-            case 1: // Buchungssätze
+            case 1:// Buchungssätze
             {       // validiere input -> gibt es die konten überhaupt?, ertstelle ein objekt des typs buchungssatz
                 // buchungssatz schreiben in file
                 // gehe in konten rein und führe die buchung durch
-                // schreibe den buchungssatz in das "Jahr-Array" von management
 
 
-                //buchungssatz in konsole ausgeben
+
+
 
 
                 //optional steuersatz verändern
 
-
+                menuBuchung(KontoManager, deutsch);
+                break;
             }
 
 
-                menuBuchung(KontoManager, deutsch);
-                break;
+
 
 
             case 2: // Kontenplan
@@ -313,12 +314,12 @@ void menuBuchung(management & km, bool sprache) {
         cout << "Der Buchunssatz lautet:" << endl;
         cout << setw(10) << kontoSoll << setw(10) << betrag << setw(10) << "an" << setw(10) << kontoHaben << endl;
 
-        cout << "Ist das so korrekt ? (j/n)" << endl;
+        cout << "Ist das so korrekt? (j/n)" << endl;
         string eingabe{};
         cin >> eingabe;
 
         km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
-        //km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
+        km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
     }else{
         cout << "Please insert the Account name, that you would like to access" << endl;
         string konto;
@@ -358,6 +359,12 @@ void menuBuchung(management & km, bool sprache) {
 
         km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
         km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
+
+       // km.getManagement().push_back()
+
+        buchungssatz b1;
+        km.speicherBuchungssatz(deutsch,b1);
+
     }
 
 

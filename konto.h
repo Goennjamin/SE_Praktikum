@@ -13,7 +13,7 @@ class konto : public buchungssatz
 public:
     konto();
     konto(string name, string kontoart,vector<buchungssatz> bs );
-    vector <konto> Konten ;
+    vector <konto> Konten;
 
     void BuchungssatzDurchfuehren(string kontoSoll,string kontoHaben, int betrag);
 
@@ -32,7 +32,7 @@ public:
     bool ueberpruefeUmlaufvermoegen(string name);
 private:
     konto sucheKonto(string kontoname);
-    // vector<Konto> KontoHinzufuegen(Konto & k);
+    //vector<konto> KontoHinzufuegen(konto & k);
     string name;
     string art;
     unsigned int id;

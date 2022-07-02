@@ -59,3 +59,7 @@ void management::speicherBuchungssatz(bool language, buchungssatz bs) {
 vector<konto> management::getManagement() {
     return Management;
 }
+
+const vector<buchungssatz> &management::getJahr() const {
+    return Jahr;
+}

@@ -19,9 +19,13 @@ public:
 
     bool leeresManagement( );
 
+    vector<buchungssatz> Jahr;
+
 private:
     vector<konto> Management;
-    array<vector<buchungssatz>, 12> Jahr;
+
+public:
+    const vector<buchungssatz> &getJahr() const;
 //bestimmtes Datum ausgeben
 //ganzen Monat ausgeben
 // ganzes Jahr ausgeben

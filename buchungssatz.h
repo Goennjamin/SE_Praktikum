@@ -14,9 +14,9 @@ class buchungssatz
 {
 public:
     buchungssatz();
-    buchungssatz(int datum, string von, string  an, int betrag, int steuersatz);
+    buchungssatz(int datum, string von, string  an, int betrag);
 
-    buchungssatz(int datum, const string &an, const string &von, int betrag, int steuersatz);
+   //buchungssatz(int datum, const string &an, const string &von, int betrag);
 
 
     virtual void printBuchungssatz(string kontoSoll, string kontoHaben, int betrag, bool language);
@@ -40,14 +40,14 @@ public:
 
     int getBetrag() const;
 
-    int getSteuersatz() const;
+    double getSteuersatz() const;
 
     bool isLanguage() const;
 
 private:
     string von;
     int betrag;
-    int steuersatz;
+    double steuersatz;
     bool language;
 
 };
