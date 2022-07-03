@@ -26,12 +26,12 @@ public:
     unsigned int getId() const;
     void setId(unsigned int newId);
 
-    void BuchungSoll(map<string, int> myMap, string name, int betrag);
+    void BuchungsseiteDurchfuehren(map<string, int> myMap, string name, int betrag);
 
 
 
     bool ueberpruefeVermoegen(string name, map<string, int> MyMap);
-    konto kontentypSollIden( konto k, int betrag);
+    konto kontentypIden(konto k, int betrag);
 
     int ParseIdzuKontoart(string id);
     map<string,int>ParseKontoartzuMap(int id);

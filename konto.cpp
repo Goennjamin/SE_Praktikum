@@ -65,10 +65,11 @@ void konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int be
 
     buchungssatz b1 = buchungssatz(datum, KontoSoll.getName(), KontoHaben.getName(), betrag);
     //Konto Soll wird bearbeitet
-    konto kS = kontentypSollIden(KontoSoll, betrag);
-    BuchungSoll(kS.ParseKontoartzuMap(kS.getId()), kS.getName(), betrag);
-
-
+    konto kS = kontentypIden(KontoSoll, betrag);
+    (kS.ParseKontoartzuMap(kS.getId()), kS.getName(),  - betrag);
+    //Konto Haben wird bearbeitet
+    konto kH = kontentypIden(KontoSoll, betrag);
+    (kH.ParseKontoartzuMap(kH.getId()), kH.getName(),  betrag);
 
 
 
@@ -91,25 +92,27 @@ bool konto::ueberpruefeVermoegen(string name, map<string,int> MyMap) {
 
 }
 
-void konto::BuchungSoll(map<string, int> myMap, string name, int betrag) {
+void konto::BuchungsseiteDurchfuehren(map<string, int> myMap, string name, int betrag) {
 
-    for (auto i = Anlagevermoegen.begin(); i != Anlagevermoegen.end(); i++) {
+    for (auto i = myMap.begin(); i != myMap.end(); i++) {
         if (i->first == name) {
-            i->second = i->second - betrag;
+            i->second = i->second + betrag;
             cout << "Soll wurde verbucht" << endl;
         }
     }
 }
 
 
-konto konto::kontentypSollIden( konto k, int betrag){
+konto konto::kontentypIden(konto k, int betrag){
     bool kontoVorhanden{};
     kontoVorhanden = ueberpruefeVermoegen(k.getName(), k.ParseKontoartzuMap(k.getId()));
     if (!(kontoVorhanden)) {
 
         k.ParseKontoartzuMap(k.getId()).insert(std::pair<string, int>(k.getName(), 0));
 
+
     }
+    return k;
 }
 
 int konto::ParseIdzuKontoart(string id) {
