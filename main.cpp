@@ -9,11 +9,10 @@ using namespace std;
 
 bool rechte(false);
 bool deutsch;
-vector<buchungssatz> jahr;
 
-void kontoHinzufugen(management & km);
+void kontoHinzufugen(management & km, bool sprache);
 void menuBuchung(management & km, bool sprache);
-
+int idzuKontoart(string id);
 //funktion des logins mit login daten
 
 void printer()
@@ -48,8 +47,8 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
     management KontoManager = management();
 
     int access = acs1.login(deutsch);
-
-    while (true) {
+    bool loop = true;
+    while (loop) {
 
         if (access == 0) {
 
@@ -74,7 +73,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                      << endl; // Verschachteltes Menü, Bilanz zu einem gewissen Zeitpunkt ausgeben, aktuell ausgeben?
                 cout << "9. Anfragen bearbeiten?" << endl;
             }
-            std::cout << "x: Das Programm beenden" << "\n";
+            std::cout << "10: Das Programm beenden" << "\n";
         } else {
 
             cout << "Welcome to the financial system" << "\n"
@@ -91,7 +90,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                 cout << "8. look at the balance?" << "\n"
                      << "9. process requests?" << "\n";
             }
-            cout << "x: Exit the program" << "\n";
+            cout << "10: Exit the program" << "\n";
         }
 
         cout << endl;
@@ -235,7 +234,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
             case 6:
 
 
-                kontoHinzufugen(KontoManager);
+                kontoHinzufugen(KontoManager, deutsch);
 
                 break;
 
@@ -248,6 +247,8 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
             case 10:
 
 
+                loop = false;
+
                 break;
 
 
@@ -258,16 +259,41 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
 
 
-void kontoHinzufugen(management & km){
-    cout << "Hiermit legen Sie ein neues Konto an:" << endl;
-    cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
+void kontoHinzufugen(management & km, bool sprache){
+
+
+    if(sprache){
+        cout << "Hiermit legen Sie ein neues Konto an:" << endl;
+        cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
+    }else if(!sprache){
+        cout << "You are in the process of creating a new account"<<"n";
+        cout << "Please insert the accountname"<<"\n";
+
+    }
+
     string name{};
     cin >> name;
-    cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
+
+    if(sprache){
+
+        cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
+
+    }else if(!sprache){
+
+        cout <<" Please insert the accounttype (activeaccount, passiveaccount,....account,....account)"<<"\n";
+
+    }
+
     string art;
     cin >> art;
-    std::vector<buchungssatz> bs;
-    konto k(name, art, bs);
+
+    vector<buchungssatz> leeresbsArray;
+    konto k = konto(name, art, leeresbsArray);
+    unsigned int id = idzuKontoart(art);
+    k.setId(id);
+
+
+
     km.kontoHinzufuegen(k);
     /*for(int i = 0; i < km.getManagement().size(); i++){
 
@@ -280,34 +306,36 @@ void menuBuchung(management & km, bool sprache) {
     string kontoSoll{};
     string kontoHaben{};
     int betrag{};
-
+    // schaut, ob schon Konten angelegt wurden
     if(sprache){
-        cout << "Bitte geben Sie den Kontonamen ein, auf das Sie zugreifen wollen." << endl;
-        string konto;
-        cin >> konto;
+        cout << "Bitte geben Sie das Konto ein von dem Sie buchen wollen" << endl;
+        cin >> kontoSoll;
+
         if(km.leeresManagement()){ cout << "Es wurden noch keine Konten angelegt. Sie werden zum Hauptmenue zurückgeführt." << endl;
 
         }else{
             bool namecorrect = true;
             while(namecorrect){
 
-                if(!km.ueberpruefeExistenz(konto)){
+                if(!km.ueberpruefeExistenz(kontoSoll)){
                     cout << "Das Konto ist nicht vorhanden. Ueberpruefen Sie die Rechtschreibung oder geben Sie ein anderes Konto an. " << endl;
                 }
-                else if(km.ueberpruefeExistenz(konto)){
+                else if(km.ueberpruefeExistenz(kontoSoll)){
                     namecorrect =false;
 
                 }
+                cout << setw(20) << kontoSoll << setw(20) << " wurde akzeptiert" << endl;
 
 
             }
         }
 
 
-        cout << "Bitte geben Sie das Konto ein von dem Sie buchen wollen" << endl;
-        cin >> kontoSoll;
+
         cout << "Bitte geben Sie das Konto ein auf welches Sie buchen wollen" << endl;
         cin >> kontoHaben;
+
+        //TODO Validierung
         cout << "Bitte geben Sie den zu verbuchenden Betrag ein" << endl;
         cin >> betrag;
 
@@ -319,6 +347,7 @@ void menuBuchung(management & km, bool sprache) {
         cin >> eingabe;
 
         km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
+        // gibt buchungssatz in der konsole aus
         km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
     }else{
         cout << "Please insert the Account name, that you would like to access" << endl;
@@ -334,7 +363,7 @@ void menuBuchung(management & km, bool sprache) {
                     cout << "This Account doesn't exist. Plese check your spelling, or try another Account." << endl;
                 }
                 else if(km.ueberpruefeExistenz(konto)){
-                    namecorrect =false;
+                    namecorrect = false;
 
                 }
 
@@ -359,13 +388,17 @@ void menuBuchung(management & km, bool sprache) {
 
         km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
         km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
-
-       // km.getManagement().push_back()
-
-        buchungssatz b1;
-        km.speicherBuchungssatz(deutsch,b1);
-
     }
 
 
+}
+
+
+int idzuKontoart(string id){
+    if (id == "Anlagevermoegen")return 0;
+    if (id == "Umlaufvermoegen")return 1;
+    if (id == "Eigenkapital")return 2;
+    if (id == "Fremdkapital")return 3;
+
+    return -1;
 }

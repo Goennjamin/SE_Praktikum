@@ -6,12 +6,9 @@ konto::konto()
 
 }
 
-konto::konto(string name, string kontoart,vector<buchungssatz> bs) : name(name), art(kontoart)
+konto::konto(string name, string kontoart,vector<buchungssatz> bs ) : name(name), art(kontoart)
 {
-    map<string,int> Eigenkapital = {};
-    map<string,int> Anlagevermoegen = {};
-    map<string,int> Fremdkapital = {};
-    map<string,int> Umlaufvermoegen ={};
+    id = 5;
 }
 
 const vector<konto> &konto::getKonten() const
@@ -30,6 +27,56 @@ konto konto::sucheKonto(string kontoname)
     return gefKonto;
 }
 
+map<string, int> &konto::getUmlaufvermoegen()
+{
+    return Umlaufvermoegen;
+}
+
+void konto::setUmlaufvermoegen(map<string, int> &newUmlaufvermoegen)
+{
+    Umlaufvermoegen = newUmlaufvermoegen;
+}
+
+map<string, int> &konto::getFremdkapital()
+{
+    return Fremdkapital;
+}
+
+void konto::setFremdkapital(map<string, int> &newFremdkapital)
+{
+    Fremdkapital = newFremdkapital;
+}
+
+map<string, int> &konto::getAnlagevermoegen()
+{
+    return Anlagevermoegen;
+}
+
+void konto::setAnlagevermoegen(map<string, int> &newAnlagevermoegen)
+{
+    Anlagevermoegen = newAnlagevermoegen;
+}
+
+map<string, int> &konto::getEigenkapital()
+{
+    return Eigenkapital;
+}
+
+void konto::setEigenkapital(map<string, int> &newEigenkapital)
+{
+    Eigenkapital = newEigenkapital;
+}
+
+unsigned int konto::getId() const
+{
+    return id;
+}
+
+void konto::setId(unsigned int newId)
+{
+    id = newId;
+}
+
 
 
 
@@ -44,18 +91,21 @@ const string &konto::getArt() const
 }
 
 void konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int betrag)
-{
-
-    konto KontoSoll = sucheKonto(kontoSoll);
+{ konto KontoSoll = sucheKonto(kontoSoll);
     konto KontoHaben = sucheKonto(kontoHaben);
+// schaut, ob Konten schon einmal für eine Buchung verwendet wurde
+// wenn nicht, wird das konto mit dem betrag 0 hinzugefügt
+    if(KontoSoll.getId()==0){
 
-    cout << "Bitte geben Sie ein Datum ein" << endl;
-    int datum{};
-    cin >> datum;
-    cout << "Welchen Steuersatz wollen Sie verwenden?"<< endl;
+        bool kontoVorhanden = ueberpruefeAnlagevermoegen(KontoSoll.getName());
 
+        if(!(kontoVorhanden)){
 
-    buchungssatz b1 = buchungssatz(datum, KontoSoll.getName(), KontoHaben.getName(), betrag);
+            std::pair<std::string, int> p1(KontoSoll.getName(), - betrag);
+            getAnlagevermoegen().insert(p1);
+
+        }
+    }
 
 
 
@@ -67,3 +117,6 @@ const string &konto::getName() const
     return name;
 }
 
+bool konto::ueberpruefeAnlagevermoegen(string name) {
+    return false;
+}
