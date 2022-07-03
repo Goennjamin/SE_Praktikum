@@ -13,6 +13,7 @@ vector<buchungssatz> jahr;
 
 void kontoHinzufugen(management & km);
 void menuBuchung(management & km, bool sprache);
+int  ParseIdzuKontoart(string art);
 
 //funktion des logins mit login daten
 
@@ -268,6 +269,8 @@ void kontoHinzufugen(management & km){
     cin >> art;
     std::vector<buchungssatz> bs;
     konto k(name, art, bs);
+    int id = k.ParseIdzuKontoart(art);
+    k.setId(id);
     km.kontoHinzufuegen(k);
     /*for(int i = 0; i < km.getManagement().size(); i++){
 
@@ -298,6 +301,7 @@ void menuBuchung(management & km, bool sprache) {
                     namecorrect =false;
 
                 }
+                cout << setw(20) << kontoSoll << setw(20) << " wurde akzeptiert" << endl;
 
 
             }
@@ -369,3 +373,4 @@ void menuBuchung(management & km, bool sprache) {
 
 
 }
+

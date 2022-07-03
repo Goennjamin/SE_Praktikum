@@ -8,10 +8,7 @@ konto::konto()
 
 konto::konto(string name, string kontoart,vector<buchungssatz> bs) : name(name), art(kontoart)
 {
-    map<string,int> Eigenkapital = {};
-    map<string,int> Anlagevermoegen = {};
-    map<string,int> Fremdkapital = {};
-    map<string,int> Umlaufvermoegen ={};
+
 }
 
 const vector<konto> &konto::getKonten() const
@@ -29,6 +26,17 @@ konto konto::sucheKonto(string kontoname)
 
     return gefKonto;
 }
+
+unsigned int konto::getId() const
+{
+    return id;
+}
+
+void konto::setId(unsigned int newId)
+{
+    id = newId;
+}
+
 
 
 
@@ -52,10 +60,14 @@ void konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int be
     cout << "Bitte geben Sie ein Datum ein" << endl;
     int datum{};
     cin >> datum;
-    cout << "Welchen Steuersatz wollen Sie verwenden?"<< endl;
+    //cout << "Welchen Steuersatz wollen Sie verwenden?"<< endl;
 
 
     buchungssatz b1 = buchungssatz(datum, KontoSoll.getName(), KontoHaben.getName(), betrag);
+    //Konto Soll wird bearbeitet
+    konto kS = kontentypSollIden(KontoSoll, betrag);
+    BuchungSoll(kS.ParseKontoartzuMap(kS.getId()), kS.getName(), betrag);
+
 
 
 
@@ -67,3 +79,50 @@ const string &konto::getName() const
     return name;
 }
 
+bool konto::ueberpruefeVermoegen(string name, map<string,int> MyMap) {
+    for (auto i = MyMap.begin(); i != MyMap.end(); i++){
+        if(i->first ==name){
+            return true;
+        }
+        else false;
+
+    }
+
+
+}
+
+void konto::BuchungSoll(map<string, int> myMap, string name, int betrag) {
+
+    for (auto i = Anlagevermoegen.begin(); i != Anlagevermoegen.end(); i++) {
+        if (i->first == name) {
+            i->second = i->second - betrag;
+            cout << "Soll wurde verbucht" << endl;
+        }
+    }
+}
+
+
+konto konto::kontentypSollIden( konto k, int betrag){
+    bool kontoVorhanden{};
+    kontoVorhanden = ueberpruefeVermoegen(k.getName(), k.ParseKontoartzuMap(k.getId()));
+    if (!(kontoVorhanden)) {
+
+        k.ParseKontoartzuMap(k.getId()).insert(std::pair<string, int>(k.getName(), 0));
+
+    }
+}
+
+int konto::ParseIdzuKontoart(string id) {
+    if (id == "Anlagevermoegen")return 0;
+    if (id == "Umlaufvermoegen")return 1;
+    if (id == "Eigenkapital")return 2;
+    if (id == "Fremdkapital")return 3;
+    return -1;
+}
+
+map<string, int> konto::ParseKontoartzuMap(int id) {
+    if(id==0) return Anlagevermoegen;
+    if(id==1) return Umlaufvermoegen;
+    if(id==2) return Eigenkapital;
+    if(id==3) return Fremdkapital;
+}
