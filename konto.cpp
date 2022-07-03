@@ -129,3 +129,33 @@ map<string, int> konto::ParseKontoartzuMap(int id) {
     if(id==2) return Eigenkapital;
     if(id==3) return Fremdkapital;
 }
+
+int konto::getSoll() const {
+    return Soll;
+}
+
+void konto::setSoll(int soll) {
+    Soll = soll;
+}
+
+int konto::getHaben() const {
+    return Haben;
+}
+
+void konto::setHaben(int haben) {
+    Haben = haben;
+}
+
+void konto::bilanzSeiteBerechnen() {
+
+}
+
+int konto::bilanzFuerKontoartBerechnen(map<string,int> myMap) {
+    int summe{};
+    for (auto i = myMap.begin(); i != myMap.end(); i++) {
+       summe = summe + i->second;
+
+}
+    return summe;
+}
+

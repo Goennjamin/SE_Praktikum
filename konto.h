@@ -28,8 +28,11 @@ public:
 
     void BuchungsseiteDurchfuehren(map<string, int> myMap, string name, int betrag);
 
+    // TODO Bilanz schreiben
+    // check if Soll == Haben
+    void bilanzSeiteBerechnen();
 
-
+    int  bilanzFuerKontoartBerechnen(map<string, int> myMap);
     bool ueberpruefeVermoegen(string name, map<string, int> MyMap);
     konto kontentypIden(konto k, int betrag);
 
@@ -42,7 +45,18 @@ public:
     string art;
     unsigned int id;
     int Aktiva,Passiva;
-    string Soll,Haben;
+
+public:
+    int getSoll() const;
+
+    void setSoll(int soll);
+
+    int getHaben() const;
+
+    void setHaben(int haben);
+
+private:
+    int Soll,Haben;
     vector<buchungssatz> bs;
     map<string,int> Eigenkapital = {};
     map<string,int> Anlagevermoegen ={};
