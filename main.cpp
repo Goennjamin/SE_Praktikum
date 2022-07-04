@@ -9,10 +9,12 @@ using namespace std;
 
 bool rechte(false);
 bool deutsch;
+vector<buchungssatz> jahr;
 
-void kontoHinzufugen(management & km, bool sprache);
-//void menuBuchung(management & km, bool sprache);
-int idzuKontoart(string id);
+void kontoHinzufugen(management & km);
+void menuBuchung(management & km, bool sprache);
+int  ParseIdzuKontoart(string art);
+
 //funktion des logins mit login daten
 
 void printer()
@@ -43,13 +45,12 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
     }
 
     ACS acs1;
-    management km1;
 
     management KontoManager = management();
 
     int access = acs1.login(deutsch);
-    bool loop = true;
-    while (loop) {
+
+    while (true) {
 
         if (access == 0) {
 
@@ -74,7 +75,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                      << endl; // Verschachteltes Menü, Bilanz zu einem gewissen Zeitpunkt ausgeben, aktuell ausgeben?
                 cout << "9. Anfragen bearbeiten?" << endl;
             }
-            std::cout << "10: Das Programm beenden" << "\n";
+            std::cout << "x: Das Programm beenden" << "\n";
         } else {
 
             cout << "Welcome to the financial system" << "\n"
@@ -91,7 +92,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                 cout << "8. look at the balance?" << "\n"
                      << "9. process requests?" << "\n";
             }
-            cout << "10: Exit the program" << "\n";
+            cout << "x: Exit the program" << "\n";
         }
 
         cout << endl;
@@ -100,19 +101,19 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
         cout << endl;
 
         switch (userinput) {
-            case 1: // Buchungssätze
+            case 1:// Buchungssätze
             {       // validiere input -> gibt es die konten überhaupt?, ertstelle ein objekt des typs buchungssatz
-                    // buchungssatz schreiben in file
-                    // gehe in konten rein und führe die buchung durch
+                // buchungssatz schreiben in file
+                // gehe in konten rein und führe die buchung durch
 
 
 
 
 
 
-                     //optional steuersatz verändern
+                //optional steuersatz verändern
 
-                km1.menuBuchung(deutsch);
+                menuBuchung(KontoManager, deutsch);
                 break;
             }
 
@@ -235,7 +236,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
             case 6:
 
 
-                kontoHinzufugen(KontoManager, deutsch);
+                kontoHinzufugen(KontoManager);
 
                 break;
 
@@ -245,18 +246,8 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
                 break;
 
-
-            case 9:
-
-
-                if(deutsch) std::cout <<"Siehe ausgabe.txt"<<"\n"; else std::cout <<"Parsed to 'ausgabe.txt'"<<"\n";
-                km1.printBilanz();
-
-                break;
             case 10:
 
-
-                loop = false;
 
                 break;
 
@@ -268,41 +259,18 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
 
 
-void kontoHinzufugen(management & km, bool sprache){
-
-
-    if(sprache){
-        cout << "Hiermit legen Sie ein neues Konto an:" << endl;
-        cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
-    }else if(!sprache){
-        cout << "You are in the process of creating a new account"<<"n";
-        cout << "Please insert the accountname"<<"\n";
-
-    }
-
+void kontoHinzufugen(management & km){
+    cout << "Hiermit legen Sie ein neues Konto an:" << endl;
+    cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
     string name{};
     cin >> name;
-
-    if(sprache){
-
-        cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
-
-    }else if(!sprache){
-
-        cout <<" Please insert the accounttype (activeaccount, passiveaccount,....account,....account)"<<"\n";
-
-    }
-
+    cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
     string art;
     cin >> art;
-
-    vector<buchungssatz> leeresbsArray;
-    konto k = konto(name, art, leeresbsArray);
-    unsigned int id = idzuKontoart(art);
+    std::vector<buchungssatz> bs;
+    konto k(name, art, bs);
+    int id = k.ParseIdzuKontoart(art);
     k.setId(id);
-
-
-
     km.kontoHinzufuegen(k);
     /*for(int i = 0; i < km.getManagement().size(); i++){
 
@@ -311,13 +279,98 @@ void kontoHinzufugen(management & km, bool sprache){
     }*/ //Debug
 }
 
+void menuBuchung(management & km, bool sprache) {
+    string kontoSoll{};
+    string kontoHaben{};
+    int betrag{};
+
+    if(sprache){
+        cout << "Bitte geben Sie den Kontonamen ein, auf das Sie zugreifen wollen." << endl;
+        string konto;
+        cin >> konto;
+        if(km.leeresManagement()){ cout << "Es wurden noch keine Konten angelegt. Sie werden zum Hauptmenue zurückgeführt." << endl;
+
+        }else{
+            bool namecorrect = true;
+            while(namecorrect){
+
+                if(!km.ueberpruefeExistenz(konto)){
+                    cout << "Das Konto ist nicht vorhanden. Ueberpruefen Sie die Rechtschreibung oder geben Sie ein anderes Konto an. " << endl;
+                }
+                else if(km.ueberpruefeExistenz(konto)){
+                    namecorrect =false;
+
+                }
+                cout << setw(20) << kontoSoll << setw(20) << " wurde akzeptiert" << endl;
 
 
-int idzuKontoart(string id){
-    if (id == "Anlagevermoegen")return 0;
-    if (id == "Umlaufvermoegen")return 1;
-    if (id == "Eigenkapital")return 2;
-    if (id == "Fremdkapital")return 3;
+            }
+        }
 
-    return -1;
+
+        cout << "Bitte geben Sie das Konto ein von dem Sie buchen wollen" << endl;
+        cin >> kontoSoll;
+        cout << "Bitte geben Sie das Konto ein auf welches Sie buchen wollen" << endl;
+        cin >> kontoHaben;
+        cout << "Bitte geben Sie den zu verbuchenden Betrag ein" << endl;
+        cin >> betrag;
+
+        cout << "Der Buchunssatz lautet:" << endl;
+        cout << setw(10) << kontoSoll << setw(10) << betrag << setw(10) << "an" << setw(10) << kontoHaben << endl;
+
+        cout << "Ist das so korrekt? (j/n)" << endl;
+        string eingabe{};
+        cin >> eingabe;
+
+        km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
+        km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
+    }else{
+        cout << "Please insert the Account name, that you would like to access" << endl;
+        string konto;
+        cin >> konto;
+        if(km.leeresManagement()){ cout << "There are no Accounts yet, you will be redirected to the main menu." << endl;
+
+        }else{
+            bool namecorrect = true;
+            while(namecorrect){
+
+                if(!km.ueberpruefeExistenz(konto)){
+                    cout << "This Account doesn't exist. Plese check your spelling, or try another Account." << endl;
+                }
+                else if(km.ueberpruefeExistenz(konto)){
+                    namecorrect =false;
+
+                }
+
+
+            }
+        }
+
+
+        cout << "Please enter the Account name from which you would like to book" << endl;
+        cin >> kontoSoll;
+        cout << "Please enter the name from the receiving account" << endl;
+        cin >> kontoHaben;
+        cout << "Please insert the Amount" << endl;
+        cin >> betrag;
+
+        cout << "The Booking looks as follows:" << endl;
+        cout << setw(10) << kontoSoll << setw(10) << betrag << setw(10) << "an" << setw(10) << kontoHaben << endl;
+
+        cout << "Is this correct? (j/n)" << endl;
+        string eingabe{};
+        cin >> eingabe;
+
+        km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
+        km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
+
+       // km.getManagement().push_back()
+
+        buchungssatz b1;
+        km.speicherBuchungssatz(deutsch,b1);
+
+    }
+
+
 }
+

@@ -6,9 +6,9 @@ konto::konto()
 
 }
 
-konto::konto(string name, string kontoart,vector<buchungssatz> bs ) : name(name), art(kontoart)
+konto::konto(string name, string kontoart,vector<buchungssatz> bs) : name(name), art(kontoart)
 {
-    id = 5;
+
 }
 
 const vector<konto> &konto::getKonten() const
@@ -25,46 +25,6 @@ konto konto::sucheKonto(string kontoname)
     }
 
     return gefKonto;
-}
-
-map<string, int> &konto::getUmlaufvermoegen()
-{
-    return Umlaufvermoegen;
-}
-
-void konto::setUmlaufvermoegen(map<string, int> &newUmlaufvermoegen)
-{
-    Umlaufvermoegen = newUmlaufvermoegen;
-}
-
-map<string, int> &konto::getFremdkapital()
-{
-    return Fremdkapital;
-}
-
-void konto::setFremdkapital(map<string, int> &newFremdkapital)
-{
-    Fremdkapital = newFremdkapital;
-}
-
-map<string, int> &konto::getAnlagevermoegen()
-{
-    return Anlagevermoegen;
-}
-
-void konto::setAnlagevermoegen(map<string, int> &newAnlagevermoegen)
-{
-    Anlagevermoegen = newAnlagevermoegen;
-}
-
-map<string, int> &konto::getEigenkapital()
-{
-    return Eigenkapital;
-}
-
-void konto::setEigenkapital(map<string, int> &newEigenkapital)
-{
-    Eigenkapital = newEigenkapital;
 }
 
 unsigned int konto::getId() const
@@ -85,6 +45,7 @@ void konto::setId(unsigned int newId)
 
 
 
+
 const string &konto::getArt() const
 {
     return art;
@@ -92,22 +53,23 @@ const string &konto::getArt() const
 
 void konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int betrag)
 {
+
     konto KontoSoll = sucheKonto(kontoSoll);
     konto KontoHaben = sucheKonto(kontoHaben);
-// schaut, ob Konten schon einmal für eine Buchung verwendet wurde
-// wenn nicht, wird das konto mit dem betrag 0 hinzugefügt
-    if(KontoSoll.getId()==0){
 
-        bool kontoVorhanden = ueberpruefeAnlagevermoegen(KontoSoll.getName());
+    cout << "Bitte geben Sie ein Datum ein" << endl;
+    int datum{};
+    cin >> datum;
+    //cout << "Welchen Steuersatz wollen Sie verwenden?"<< endl;
 
-        if(!(kontoVorhanden)){
 
-            std::pair<std::string, int> p1(KontoSoll.getName(), - betrag);
-            getAnlagevermoegen().insert(p1);
-
-        }
-    }
-
+    buchungssatz b1 = buchungssatz(datum, KontoSoll.getName(), KontoHaben.getName(), betrag);
+    //Konto Soll wird bearbeitet
+    konto kS = kontentypIden(KontoSoll, betrag);
+    (kS.ParseKontoartzuMap(kS.getId()), kS.getName(),  - betrag);
+    //Konto Haben wird bearbeitet
+    konto kH = kontentypIden(KontoSoll, betrag);
+    (kH.ParseKontoartzuMap(kH.getId()), kH.getName(),  betrag);
 
 
 
@@ -118,6 +80,82 @@ const string &konto::getName() const
     return name;
 }
 
-bool konto::ueberpruefeAnlagevermoegen(string name) {
-    return false;
+bool konto::ueberpruefeVermoegen(string name, map<string,int> MyMap) {
+    for (auto i = MyMap.begin(); i != MyMap.end(); i++){
+        if(i->first ==name){
+            return true;
+        }
+        else false;
+
+    }
+
+
 }
+
+void konto::BuchungsseiteDurchfuehren(map<string, int> myMap, string name, int betrag) {
+
+    for (auto i = myMap.begin(); i != myMap.end(); i++) {
+        if (i->first == name) {
+            i->second = i->second + betrag;
+            cout << "Soll wurde verbucht" << endl;
+        }
+    }
+}
+
+
+konto konto::kontentypIden(konto k, int betrag){
+    bool kontoVorhanden{};
+    kontoVorhanden = ueberpruefeVermoegen(k.getName(), k.ParseKontoartzuMap(k.getId()));
+    if (!(kontoVorhanden)) {
+
+        k.ParseKontoartzuMap(k.getId()).insert(std::pair<string, int>(k.getName(), 0));
+
+
+    }
+    return k;
+}
+
+int konto::ParseIdzuKontoart(string id) {
+    if (id == "Anlagevermoegen")return 0;
+    if (id == "Umlaufvermoegen")return 1;
+    if (id == "Eigenkapital")return 2;
+    if (id == "Fremdkapital")return 3;
+    return -1;
+}
+
+map<string, int> konto::ParseKontoartzuMap(int id) {
+    if(id==0) return Anlagevermoegen;
+    if(id==1) return Umlaufvermoegen;
+    if(id==2) return Eigenkapital;
+    if(id==3) return Fremdkapital;
+}
+
+int konto::getSoll() const {
+    return Soll;
+}
+
+void konto::setSoll(int soll) {
+    Soll = soll;
+}
+
+int konto::getHaben() const {
+    return Haben;
+}
+
+void konto::setHaben(int haben) {
+    Haben = haben;
+}
+
+void konto::bilanzSeiteBerechnen() {
+
+}
+
+int konto::bilanzFuerKontoartBerechnen(map<string,int> myMap) {
+    int summe{};
+    for (auto i = myMap.begin(); i != myMap.end(); i++) {
+       summe = summe + i->second;
+
+}
+    return summe;
+}
+

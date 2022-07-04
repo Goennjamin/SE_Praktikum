@@ -6,15 +6,13 @@
 #include <iomanip>
 #include <map>
 #include "buchungssatz.h"
-#include <bits/stdc++.h>
-#include "utility"
 
 using namespace std;
 class konto : public buchungssatz
 {
 public:
     konto();
-    konto(string name, string kontoart,vector<buchungssatz> bs);
+    konto(string name, string kontoart,vector<buchungssatz> bs );
     vector <konto> Konten;
 
     void BuchungssatzDurchfuehren(string kontoSoll,string kontoHaben, int betrag);
@@ -25,43 +23,45 @@ public:
 
     const string &getArt() const;
 
-
-
-
-    bool ueberpruefeAnlagevermoegen(string name);
-    bool ueberpruefeEigenkaptal(string name);
-    bool ueberpruefeFremdkapital(string name);
-    bool ueberpruefeUmlaufvermoegen(string name);
     unsigned int getId() const;
     void setId(unsigned int newId);
 
-    map<string, int> &getEigenkapital();
-    void setEigenkapital(map<string, int> &newEigenkapital);
+    void BuchungsseiteDurchfuehren(map<string, int> myMap, string name, int betrag);
 
-    map<string, int> &getAnlagevermoegen();
-    void setAnlagevermoegen(map<string, int> &newAnlagevermoegen);
+    // TODO Bilanz schreiben
+    // check if Soll == Haben
+    void bilanzSeiteBerechnen();
 
-    map<string, int> &getFremdkapital();
-    void setFremdkapital(map<string, int> &newFremdkapital);
+    int  bilanzFuerKontoartBerechnen(map<string, int> myMap);
+    bool ueberpruefeVermoegen(string name, map<string, int> MyMap);
+    konto kontentypIden(konto k, int betrag);
 
-    map<string, int> &getUmlaufvermoegen();
-    void setUmlaufvermoegen(map<string, int> &newUmlaufvermoegen);
-
-    map<string,int> Anlagevermoegen = {};
-
-private:
+    int ParseIdzuKontoart(string id);
+    map<string,int>ParseKontoartzuMap(int id);
+    private:
     konto sucheKonto(string kontoname);
     //vector<konto> KontoHinzufuegen(konto & k);
     string name;
     string art;
     unsigned int id;
     int Aktiva,Passiva;
-    string Soll,Haben;
-    vector<buchungssatz> bs;
 
-    map<string,int> Eigenkapital;
-    map<string,int> Fremdkapital;
-    map<string,int> Umlaufvermoegen;
+public:
+    int getSoll() const;
+
+    void setSoll(int soll);
+
+    int getHaben() const;
+
+    void setHaben(int haben);
+
+private:
+    int Soll,Haben;
+    vector<buchungssatz> bs;
+    map<string,int> Eigenkapital = {};
+    map<string,int> Anlagevermoegen ={};
+    map<string,int> Fremdkapital = {};
+    map<string,int> Umlaufvermoegen ={};
 };
 
 #endif // KONTO_H
