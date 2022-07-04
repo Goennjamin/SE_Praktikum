@@ -1,5 +1,6 @@
 #include "konto.h"
 #include <vector>
+#include <fstream>
 
 konto::konto()
 {
@@ -157,5 +158,108 @@ int konto::bilanzFuerKontoartBerechnen(map<string,int> myMap) {
 
 }
     return summe;
+}
+
+void konto::printBilanz(int summe, bool sprache) {
+
+    if(sprache){
+        std::ofstream fout;
+
+        fout.open(R"(..\ausgabe.txt)");
+
+        int aktiva = Anlagevermoegen.at(0);
+        int umlauf = Umlaufvermoegen.at(0);
+
+        int eigen = Eigenkapital.at(0);
+        int passiva = Anlagevermoegen.at(0);
+
+        int summeA = aktiva + umlauf;
+        int summeP = eigen + passiva;
+
+        if(summeA != summeP) {
+            std::cout << "Fehlerhafte Bilanz, kehre zum Hauptmenu zuruck" << "\n";
+        }else{
+            std::string anlagespacer ="";
+            std::string umlaufspacer ="";
+            std::string summenspacer ="";
+
+            std::string spacer ="";
+            if(summeA > 99) spacer = " ";
+            if(summeA > 999) spacer = "  ";
+            if(summeA > 9999) spacer = "   ";
+            if(summeA > 99999) spacer = "    ";
+            if(summeA > 999999) spacer = "     ";
+            if(summeA > 9999999) spacer = "      ";
+            if(summeA > 99999999) spacer = "       ";
+            summenspacer = spacer;
+
+
+            fout   <<"SOLL---------------------------------------------------HABEN"<<"\n"
+                   <<"Anlagevermogen: "<<aktiva<<"                 |"<<"Eigenkapital: "<<eigen<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<"Umlaufvermogen: "<<umlauf<<"                 |"<<"Schulden: "<<passiva<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<"Summe: "<<summeA<<"                  |"<<"Summe: "<<summeP<<"\n";
+
+
+
+
+            fout.close();
+        }
+    }else{
+        std::ofstream fout;
+
+        fout.open(R"(..\ausgabe.txt)");
+
+        int aktiva = Anlagevermoegen.at(0);
+        int umlauf = Umlaufvermoegen.at(0);
+
+        int eigen = Eigenkapital.at(0);
+        int passiva = Anlagevermoegen.at(0);
+
+        int summeA = aktiva + umlauf;
+        int summeP = eigen + passiva;
+
+        if(summeA != summeP) {
+            std::cout << "Invalid balance, returning to the main menu" << "\n";
+        }else{
+            std::string anlagespacer ="";
+            std::string umlaufspacer ="";
+            std::string summenspacer ="";
+
+            std::string spacer ="";
+            if(summeA > 99) spacer = " ";
+            if(summeA > 999) spacer = "  ";
+            if(summeA > 9999) spacer = "   ";
+            if(summeA > 99999) spacer = "    ";
+            if(summeA > 999999) spacer = "     ";
+            if(summeA > 9999999) spacer = "      ";
+            if(summeA > 99999999) spacer = "       ";
+            summenspacer = spacer;
+
+
+            fout   <<"SHALL---------------------------------------------------HAVING"<<"\n"
+                   <<"Capital assets: "<<aktiva<<"                 |"<<"Equity capital: "<<eigen<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<"Current assets: "<<umlauf<<"                 |"<<"Debts: "<<passiva<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<spacer<<"                          |                   "<<"\n"
+                   <<"Sum: "<<summeA<<"                  |"<<"Sum: "<<summeP<<"\n";
+
+
+
+
+            fout.close();
+        }
+    }
+
+
+
+
 }
 

@@ -30,6 +30,9 @@ public:
 
     // TODO Bilanz schreiben
     // check if Soll == Haben
+
+    void printBilanz(int summe, bool sprache);
+
     void bilanzSeiteBerechnen();
 
     int  bilanzFuerKontoartBerechnen(map<string, int> myMap);

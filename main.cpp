@@ -50,7 +50,9 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
     int access = acs1.login(deutsch);
 
-    while (true) {
+    bool loop = true;
+
+    while (loop) {
 
         if (access == 0) {
 
@@ -73,9 +75,8 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
             if (rechte) {
                 cout << "8. Bilanz ausgeben?"
                      << endl; // Verschachteltes Menü, Bilanz zu einem gewissen Zeitpunkt ausgeben, aktuell ausgeben?
-                cout << "9. Anfragen bearbeiten?" << endl;
             }
-            std::cout << "x: Das Programm beenden" << "\n";
+            std::cout << "10: Das Programm beenden" << "\n";
         } else {
 
             cout << "Welcome to the financial system" << "\n"
@@ -89,10 +90,9 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                  << "6. open a new bank account?" << "\n"
                  << "7. Logout/switch accounts?" << "\n";
             if (access > 2) {
-                cout << "8. look at the balance?" << "\n"
-                     << "9. process requests?" << "\n";
+                cout << "8. look at the balance?" << "\n";
             }
-            cout << "x: Exit the program" << "\n";
+            cout << "10: Exit the program" << "\n";
         }
 
         cout << endl;
@@ -248,7 +248,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
             case 10:
 
-
+                loop = false;
                 break;
 
 
@@ -260,23 +260,47 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
 
 void kontoHinzufugen(management & km){
-    cout << "Hiermit legen Sie ein neues Konto an:" << endl;
-    cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
-    string name{};
-    cin >> name;
-    cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
-    string art;
-    cin >> art;
-    std::vector<buchungssatz> bs;
-    konto k(name, art, bs);
-    int id = k.ParseIdzuKontoart(art);
-    k.setId(id);
-    km.kontoHinzufuegen(k);
-    /*for(int i = 0; i < km.getManagement().size(); i++){
 
-        std::cout<<km.getManagement().at(i).getName();
+    if(deutsch){
+        cout << "Hiermit legen Sie ein neues Konto an:" << endl;
+        cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
+        string name{};
+        cin >> name;
+        cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
+        string art;
+        cin >> art;
+        std::vector<buchungssatz> bs;
+        if(art != "Aktivkonto" && art != "Passivkonto" && art != "Aufwandskonto" && art != "Ertragskonto"){
+            cout << "Ungueltige kontoart, bitte die Kontenerstellung nochmal versuchen" <<"\n";
+        }else{
+            konto k(name, art, bs);
+            int id = k.ParseIdzuKontoart(art);
+            k.setId(id);
+            km.kontoHinzufuegen(k);
+            cout << "Konto: " << k.getName() << " wurde erstellt"<<"\n";
+        }
+    }else{
+        cout << "You are in the process of creating a new account:" << endl;
+        cout << "Please enter the account name:" << endl;
+        string name{};
+        cin >> name;
+        cout << "Please specify the account type (Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto)" << endl;
+        string art;
+        cin >> art;
+        std::vector<buchungssatz> bs;
+        if(art != "Aktivkonto" && art != "Passivkonto" && art != "Aufwandskonto" && art != "Ertragskonto"){
+            cout << "Invalid account type, please start the account creation again" <<"\n";
+        }else{
+            konto k(name, art, bs);
+            int id = k.ParseIdzuKontoart(art);
+            k.setId(id);
+            km.kontoHinzufuegen(k);
+            cout << "The account: " << k.getName() << " has been created"<<"\n";
+        }
+    }
 
-    }*/ //Debug
+
+
 }
 
 void menuBuchung(management & km, bool sprache) {
