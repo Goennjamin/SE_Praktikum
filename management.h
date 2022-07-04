@@ -22,7 +22,8 @@ public:
 
     vector<buchungssatz> Jahr;
 
-    static void printBilanz();
+    static void printBilanz(bool sprache);
+
 
 private:
     vector<konto> Management;

@@ -1,0 +1,9 @@
+SOLL---------------------------------------------------HABEN
+Anlagevermogen: 55                 |Eigenkapital: 40
+                           |                   
+                           |                   
+                           |                   
+Umlaufvermogen: 45                 |Schulden: 60
+                           |                   
+                           |                   
+Summe: 100                  |Summe: 100

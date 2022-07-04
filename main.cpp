@@ -45,6 +45,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
     }
 
     ACS acs1;
+    management m1;
 
     management KontoManager = management();
 
@@ -73,7 +74,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
             cout << "6. Neues Konto eröffnen" << "\n";
             cout << "7. Logout/Account wechseln" << endl;
             if (rechte) {
-                cout << "8. Bilanz ausgeben?"
+                cout << "9. Bilanz ausgeben?"
                      << endl; // Verschachteltes Menü, Bilanz zu einem gewissen Zeitpunkt ausgeben, aktuell ausgeben?
             }
             std::cout << "10: Das Programm beenden" << "\n";
@@ -90,7 +91,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
                  << "6. open a new bank account?" << "\n"
                  << "7. Logout/switch accounts?" << "\n";
             if (access > 2) {
-                cout << "8. look at the balance?" << "\n";
+                cout << "9. look at the balance?" << "\n";
             }
             cout << "10: Exit the program" << "\n";
         }
@@ -246,6 +247,11 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
                 break;
 
+            case 9:
+
+                m1.printBilanz(deutsch);
+
+                break;
             case 10:
 
                 loop = false;
@@ -266,37 +272,33 @@ void kontoHinzufugen(management & km){
         cout << "Bitte geben Sie den Namen des Kontos ein:" << endl;
         string name{};
         cin >> name;
-        cout << "Bitte geben Sie die Art des Kontos ein(Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto):" << endl;
+        cout << "Bitte geben Sie die Art des Kontos ein(Anlagevermoegen, Umlaufvermoegen,Eigenkapital, Fremdkapital):" << endl;
         string art;
         cin >> art;
         std::vector<buchungssatz> bs;
-        if(art != "Aktivkonto" && art != "Passivkonto" && art != "Aufwandskonto" && art != "Ertragskonto"){
-            cout << "Ungueltige kontoart, bitte die Kontenerstellung nochmal versuchen" <<"\n";
-        }else{
+
             konto k(name, art, bs);
             int id = k.ParseIdzuKontoart(art);
             k.setId(id);
             km.kontoHinzufuegen(k);
             cout << "Konto: " << k.getName() << " wurde erstellt"<<"\n";
-        }
+
     }else{
         cout << "You are in the process of creating a new account:" << endl;
         cout << "Please enter the account name:" << endl;
         string name{};
         cin >> name;
-        cout << "Please specify the account type (Aktivkonto,Passivkonto,Aufwandskonto, Ertragskonto)" << endl;
+        cout << "Please specify the account type (Anlagevermoegen, Umlaufvermoegen,Eigenkapital, Fremdkapital)" << endl;
         string art;
         cin >> art;
         std::vector<buchungssatz> bs;
-        if(art != "Aktivkonto" && art != "Passivkonto" && art != "Aufwandskonto" && art != "Ertragskonto"){
-            cout << "Invalid account type, please start the account creation again" <<"\n";
-        }else{
+
             konto k(name, art, bs);
             int id = k.ParseIdzuKontoart(art);
             k.setId(id);
             km.kontoHinzufuegen(k);
             cout << "The account: " << k.getName() << " has been created"<<"\n";
-        }
+
     }
 
 

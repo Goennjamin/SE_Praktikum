@@ -167,11 +167,11 @@ void konto::printBilanz(int summe, bool sprache) {
 
         fout.open(R"(..\ausgabe.txt)");
 
-        int aktiva = Anlagevermoegen.at(0);
-        int umlauf = Umlaufvermoegen.at(0);
+        int aktiva = bilanzFuerKontoartBerechnen(Anlagevermoegen);
+        int umlauf = bilanzFuerKontoartBerechnen(Umlaufvermoegen);
 
-        int eigen = Eigenkapital.at(0);
-        int passiva = Anlagevermoegen.at(0);
+        int eigen = bilanzFuerKontoartBerechnen(Eigenkapital);
+        int passiva = bilanzFuerKontoartBerechnen(Fremdkapital);
 
         int summeA = aktiva + umlauf;
         int summeP = eigen + passiva;
@@ -214,11 +214,11 @@ void konto::printBilanz(int summe, bool sprache) {
 
         fout.open(R"(..\ausgabe.txt)");
 
-        int aktiva = Anlagevermoegen.at(0);
-        int umlauf = Umlaufvermoegen.at(0);
+        int aktiva = bilanzFuerKontoartBerechnen(Anlagevermoegen);
+        int umlauf = bilanzFuerKontoartBerechnen(Umlaufvermoegen);
 
-        int eigen = Eigenkapital.at(0);
-        int passiva = Anlagevermoegen.at(0);
+        int eigen = bilanzFuerKontoartBerechnen(Eigenkapital);
+        int passiva = bilanzFuerKontoartBerechnen(Fremdkapital);
 
         int summeA = aktiva + umlauf;
         int summeP = eigen + passiva;
