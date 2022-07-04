@@ -11,6 +11,7 @@ class management : public konto{
 public:
     management();
 
+
     void kontoHinzufuegen(konto &konto);
 
     void speicherBuchungssatz(bool language, buchungssatz bs);
@@ -20,6 +21,8 @@ public:
     bool leeresManagement( );
 
     vector<buchungssatz> Jahr;
+
+    static void printBilanz();
 
 private:
     vector<konto> Management;
@@ -34,5 +37,7 @@ public:
 
 public:
     vector<konto> getManagement();
+
+    void menuBuchung(bool sprache);
 };
 #endif //MANAGEMENT_H

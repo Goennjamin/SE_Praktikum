@@ -58,8 +58,8 @@ private:
     int Aktiva,Passiva;
     string Soll,Haben;
     vector<buchungssatz> bs;
-    map<string,int> Eigenkapital;
 
+    map<string,int> Eigenkapital;
     map<string,int> Fremdkapital;
     map<string,int> Umlaufvermoegen;
 };

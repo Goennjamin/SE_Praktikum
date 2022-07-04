@@ -11,7 +11,7 @@ bool rechte(false);
 bool deutsch;
 
 void kontoHinzufugen(management & km, bool sprache);
-void menuBuchung(management & km, bool sprache);
+//void menuBuchung(management & km, bool sprache);
 int idzuKontoart(string id);
 //funktion des logins mit login daten
 
@@ -43,6 +43,7 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
     }
 
     ACS acs1;
+    management km1;
 
     management KontoManager = management();
 
@@ -99,19 +100,19 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
         cout << endl;
 
         switch (userinput) {
-            case 1:// Buchungssätze
+            case 1: // Buchungssätze
             {       // validiere input -> gibt es die konten überhaupt?, ertstelle ein objekt des typs buchungssatz
-                // buchungssatz schreiben in file
-                // gehe in konten rein und führe die buchung durch
+                    // buchungssatz schreiben in file
+                    // gehe in konten rein und führe die buchung durch
 
 
 
 
 
 
-                //optional steuersatz verändern
+                     //optional steuersatz verändern
 
-                menuBuchung(KontoManager, deutsch);
+                km1.menuBuchung(deutsch);
                 break;
             }
 
@@ -244,6 +245,14 @@ int main() // txt = read file, edited = save file. buchungen in txt speichern un
 
                 break;
 
+
+            case 9:
+
+
+                if(deutsch) std::cout <<"Siehe ausgabe.txt"<<"\n"; else std::cout <<"Parsed to 'ausgabe.txt'"<<"\n";
+                km1.printBilanz();
+
+                break;
             case 10:
 
 
@@ -302,96 +311,6 @@ void kontoHinzufugen(management & km, bool sprache){
     }*/ //Debug
 }
 
-void menuBuchung(management & km, bool sprache) {
-    string kontoSoll{};
-    string kontoHaben{};
-    int betrag{};
-    // schaut, ob schon Konten angelegt wurden
-    if(sprache){
-        cout << "Bitte geben Sie das Konto ein von dem Sie buchen wollen" << endl;
-        cin >> kontoSoll;
-
-        if(km.leeresManagement()){ cout << "Es wurden noch keine Konten angelegt. Sie werden zum Hauptmenue zurückgeführt." << endl;
-
-        }else{
-            bool namecorrect = true;
-            while(namecorrect){
-
-                if(!km.ueberpruefeExistenz(kontoSoll)){
-                    cout << "Das Konto ist nicht vorhanden. Ueberpruefen Sie die Rechtschreibung oder geben Sie ein anderes Konto an. " << endl;
-                }
-                else if(km.ueberpruefeExistenz(kontoSoll)){
-                    namecorrect =false;
-
-                }
-                cout << setw(20) << kontoSoll << setw(20) << " wurde akzeptiert" << endl;
-
-
-            }
-        }
-
-
-
-        cout << "Bitte geben Sie das Konto ein auf welches Sie buchen wollen" << endl;
-        cin >> kontoHaben;
-
-        //TODO Validierung
-        cout << "Bitte geben Sie den zu verbuchenden Betrag ein" << endl;
-        cin >> betrag;
-
-        cout << "Der Buchunssatz lautet:" << endl;
-        cout << setw(10) << kontoSoll << setw(10) << betrag << setw(10) << "an" << setw(10) << kontoHaben << endl;
-
-        cout << "Ist das so korrekt? (j/n)" << endl;
-        string eingabe{};
-        cin >> eingabe;
-
-        km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
-        // gibt buchungssatz in der konsole aus
-        km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
-    }else{
-        cout << "Please insert the Account name, that you would like to access" << endl;
-        string konto;
-        cin >> konto;
-        if(km.leeresManagement()){ cout << "There are no Accounts yet, you will be redirected to the main menu." << endl;
-
-        }else{
-            bool namecorrect = true;
-            while(namecorrect){
-
-                if(!km.ueberpruefeExistenz(konto)){
-                    cout << "This Account doesn't exist. Plese check your spelling, or try another Account." << endl;
-                }
-                else if(km.ueberpruefeExistenz(konto)){
-                    namecorrect = false;
-
-                }
-
-
-            }
-        }
-
-
-        cout << "Please enter the Account name from which you would like to book" << endl;
-        cin >> kontoSoll;
-        cout << "Please enter the name from the receiving account" << endl;
-        cin >> kontoHaben;
-        cout << "Please insert the Amount" << endl;
-        cin >> betrag;
-
-        cout << "The Booking looks as follows:" << endl;
-        cout << setw(10) << kontoSoll << setw(10) << betrag << setw(10) << "an" << setw(10) << kontoHaben << endl;
-
-        cout << "Is this correct? (j/n)" << endl;
-        string eingabe{};
-        cin >> eingabe;
-
-        km.BuchungssatzDurchfuehren(kontoSoll, kontoHaben, betrag);
-        km.printBuchungssatz(kontoSoll, kontoHaben, betrag, true);
-    }
-
-
-}
 
 
 int idzuKontoart(string id){

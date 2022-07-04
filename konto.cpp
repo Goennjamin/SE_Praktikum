@@ -91,7 +91,8 @@ const string &konto::getArt() const
 }
 
 void konto::BuchungssatzDurchfuehren(string kontoSoll, string kontoHaben, int betrag)
-{ konto KontoSoll = sucheKonto(kontoSoll);
+{
+    konto KontoSoll = sucheKonto(kontoSoll);
     konto KontoHaben = sucheKonto(kontoHaben);
 // schaut, ob Konten schon einmal für eine Buchung verwendet wurde
 // wenn nicht, wird das konto mit dem betrag 0 hinzugefügt
